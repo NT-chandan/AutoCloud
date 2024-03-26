@@ -1,0 +1,1 @@
+sfdx force:package:install --package "Financial Services Cloud Transition Assistant (UAT)@0.0.0-1" --installationkey zennifySFDC2021 --wait 10 --publishwait 10

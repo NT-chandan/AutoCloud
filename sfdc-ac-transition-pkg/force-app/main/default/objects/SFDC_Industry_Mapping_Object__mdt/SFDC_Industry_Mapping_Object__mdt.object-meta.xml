@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Standard and Custom objects that exist in the SFDC Industries package that the subscriber org is transitioning to</description>
+    <label>SFDC Industry Mapping Object</label>
+    <pluralLabel>SFDC Industry Mapping Objects</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

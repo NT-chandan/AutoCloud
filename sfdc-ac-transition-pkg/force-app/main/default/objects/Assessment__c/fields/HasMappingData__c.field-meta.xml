@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HasMappingData__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If checked, indicates that mapping has been completed for this Assessment.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If checked, indicates that mapping has been completed for this Assessment.</inlineHelpText>
+    <label>Has Mapping Data?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

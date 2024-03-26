@@ -1,0 +1,16 @@
+<template>
+    <div class="container">
+        <div class="slds-progress">
+            <ol class="slds-progress__list">
+                <template for:each={steps} for:item="step">
+                    <c-assessment-progress-indicator-step class="stepComponent" key={step.value} current-step={currentStep} description={step.description} label={step.label} value={step.value}></c-assessment-progress-indicator-step>
+                </template>
+            </ol>
+            <div class="slds-progress-bar slds-progress-bar_x-small" aria-valuemin="0" aria-valuemax="100" aria-valuenow={currentProgress} role="progressbar">
+                <span class="slds-progress-bar__value" style={currentProgressStyle}>
+                  <span class="slds-assistive-text">{label.UIProgressIndicatorAssistiveText}&nbsp;{currentProgress}</span>
+                </span>
+              </div>
+        </div>
+    </div>
+</template>

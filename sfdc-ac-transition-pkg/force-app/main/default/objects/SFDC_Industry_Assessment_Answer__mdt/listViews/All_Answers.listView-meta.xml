@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Answers</fullName>
+    <columns>MasterLabel</columns>
+    <columns>DeveloperName</columns>
+    <columns>Question_Label__c</columns>
+    <columns>Required_Vertical__c</columns>
+    <columns>Mapped_Objects__c</columns>
+    <columns>Question__c</columns>
+    <columns>Follow_Up_To__c</columns>
+    <columns>Index__c</columns>
+    <columns>Help_Text_Label__c</columns>
+    <columns>Verbose_Help_Text_Label__c</columns>
+    <columns>Bottom_Help_Text_Label__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Answers</label>
+    <language>en_US</language>
+</ListView>

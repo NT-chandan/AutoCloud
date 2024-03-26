@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Associated_Group__c</fullName>
+    <description>If populated, the content of this branch is part of a Question Group</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>If populated, the content of this branch is part of a Question Group</inlineHelpText>
+    <label>Associated Group</label>
+    <referenceTo>SFDC_Industry_Assessment_Question_Group__mdt</referenceTo>
+    <relationshipLabel>SFDC Industry Assessment Question Branch</relationshipLabel>
+    <relationshipName>SFDC_Industry_Assessment_Question_Branch</relationshipName>
+    <required>false</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

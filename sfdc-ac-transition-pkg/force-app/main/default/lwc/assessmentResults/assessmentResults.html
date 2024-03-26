@@ -1,0 +1,310 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner variant="brand" alternative-text="Loading"></lightning-spinner>
+    </template>
+    <template if:true={isScanning}>
+        <div class="stillScanningContainer">
+            <div class="slds-text-heading_large">{label.stillScanningWelcome}</div>
+            <div class="slds-text-heading_small" style="margin-top: .5rem;">{label.stillScanningText}</div>
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand" style="margin-top: 2.5rem;">
+                <span class="slds-assistive-text">{label.scanningAssistText}</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </template>
+
+    <template if:false={isScanning}>
+        <template if:false={isLoading}>
+
+            <template if:true={isNonAdminUser}>
+                <div class="failed-scan-msg">
+                    <div class="failed-scan-symbol">
+                        <lightning-icon icon-name="utility:warning" size="x-small" alternative-text="true"
+                            title="true"></lightning-icon>
+                    </div>
+                    <div class="failed-scan-text">
+                        <lightning-formatted-rich-text
+                            value={label.nonAdminErrorMessage}></lightning-formatted-rich-text>
+                    </div>
+                </div>
+            </template>
+
+            <lightning-accordion allow-multiple-sections-open="true" active-section-name={activeSectionNamesTop}>
+
+                <!-- Report Header -->
+                <c-assessment-results-header assessment={assessment} results={assessmentResults}
+                    presalesitems={assessmentResults.analysis.assessmentResultsListItems} sections={reportSections}
+                    pdf-mode={pdfMode} hide-summary={hideReportSummary}></c-assessment-results-header>
+
+                <!-- Report Sections -->
+                <template for:each={reportSections} for:item="section">
+                    <template if:true={section.isWelcomeSection}>
+                        <lightning-accordion-section name={section.name} key={section.id} label={section.title}
+                            class="section">
+                            <template if:true={section.isWelcomeSection}>
+                                <c-assessment-results-disclaimer onshowreport={showreport}
+                                    onshowwelcome={showwelcome}></c-assessment-results-disclaimer>
+                            </template>
+                        </lightning-accordion-section>
+                    </template>
+
+                    <template if:true={section.isReportSummarySection}>
+                        <template if:false={hideReportSummary}>
+                            <lightning-accordion-section name={section.name} key={section.id} label={section.title}
+                                class="section">
+                                <template if:true={section.isReportSummarySection}>
+                                    <lightning-button variant="brand" label="Download Report Summary"
+                                        title="Download Report Summary" slot="actions"
+                                        onclick={handleReportSummaryDownload} class="slds-m-left_x-small">
+                                    </lightning-button>
+                                    <c-report-summary section={reportSummarySection}
+                                        reportsummarydata={reportSummaryData}></c-report-summary>
+                                </template>
+                            </lightning-accordion-section>
+                        </template>
+                    </template>
+                </template>
+
+                <!-- Now Full Report should be top-level -->
+                <lightning-accordion-section name="fullReport" label="Full Report" class="section">
+                    <lightning-accordion allow-multiple-sections-open="true" active-section-name={activeSectionNames}>
+                        <template for:each={reportSections} for:item="section">
+                            <template if:false={section.isTopLevel}>
+                                <lightning-accordion-section name={section.name} key={section.id} label={section.title}
+                                    class="section">
+
+                                    <template for:each={section.subsections} for:item="subsection">
+                                        <c-assessment-report-subsection key={subsection.id}
+                                            subsection={subsection}></c-assessment-report-subsection>
+                                    </template>
+
+                                    <template if:true={section.isOverallRecommendationSection}>
+                                        <c-overall-recommendation-section
+                                            recommendations={assessmentResults.recommendations}
+                                            overall-recommendation={assessmentResults.overallRecommendation}></c-overall-recommendation-section>
+                                    </template>
+
+                                    <template if:true={section.isAssessmentResultsSection}>
+                                        <div class="slds-scrollable_y datatable">
+                                            <lightning-datatable key-field="uuid" hide-checkbox-column="true"
+                                                columns={resultsColumns} data={resultsData}>
+                                            </lightning-datatable>
+                                        </div>
+                                        <!-- Pre-Sales -->
+                                        <template if:true={hasPreSalesAssessmentResults}>
+                                            <ul class="subsection-body">
+                                                <template for:each={preSalesItems} for:item="preSaleItem">
+                                                    <li key={preSaleItem.replaceWithFsc}>
+                                                        <div class="bulletRow">
+                                                            <lightning-icon class="iconSpacing"
+                                                                icon-name={preSaleItem.iconOverride}
+                                                                size="small"></lightning-icon>
+                                                            <lightning-formatted-rich-text
+                                                                value={preSaleItem.reasonText}></lightning-formatted-rich-text>
+                                                        </div>
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </template>
+                                    </template>
+
+                                    <template if:true={section.isMigrationAnalysisSection}>
+                                        <template if:true={hasAnalysisData}>
+                                            <div class="slds-scrollable_y datatable">
+                                                <lightning-tree-grid key-field="uuid" hide-checkbox-column="true"
+                                                    columns={analysisColumns} data={analysisData}>
+                                                </lightning-tree-grid>
+                                            </div>
+                                        </template>
+                                        <template if:false={hasAnalysisData}>
+                                            <p class="slds-text-body_regular slds-p-around_small"
+                                                style="font-weight: bold;">
+                                                {label.assessmentResultsEmptyTable}</p>
+                                        </template>
+                                        <lightning-accordion-section name="Additional Relationship Analysis"
+                                            label="Additional Relationship Analysis">
+                                            <!-- Object Relationship -->
+                                            <template if:true={hasObjectRelationshipResults}>
+                                                <p class="slds-text-body_regular slds-p-around_small">
+                                                    {label.ObjectRelationshipText}</p>
+                                                <ul class="subsection-body">
+                                                    <template for:each={objectRelationshipData} for:item="objectData">
+                                                        <li key={objectData.objRecord} class="slds-var-m-bottom_medium">
+                                                            <div class="bulletRow">
+                                                                <lightning-icon class="iconSpacing"
+                                                                    icon-name="utility:warning"
+                                                                    size="small"></lightning-icon>
+                                                                <lightning-formatted-rich-text
+                                                                    value={objectData.value}></lightning-formatted-rich-text>
+                                                            </div>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </template>
+                                            <template if:false={hasObjectRelationshipResults}>
+                                                <p class="slds-text-body_regular slds-p-around_small"
+                                                    style="font-weight: bold;">
+                                                    No additional object relationship mapping needed.</p>
+                                            </template>
+                                        </lightning-accordion-section>
+                                        <!--Unmapped Required Fields-->
+                                        <lightning-accordion-section name="Unmapped Required Fields"
+                                            label="Unmapped Required Fields">
+                                            <p class="slds-text-body_regular slds-p-around_small">
+                                                {label.UnmappedReqFieldDescriptionText}</p>
+
+                                            <template if:true={objectFields}>
+                                                <lightning-accordion allow-multiple-sections-open>
+                                                    <template for:each={objectFields} for:item="objectField"
+                                                        for:index="index">
+                                                        <lightning-accordion-section name={objectField.objectType}
+                                                            label={objectField.objectType} key={objectField.objectType}>
+                                                            <ul>
+                                                                <template for:each={objectField.fields}
+                                                                    for:item="field">
+                                                                    <li key={field}>
+                                                                        <lightning-formatted-rich-text value={field}>
+                                                                        </lightning-formatted-rich-text>
+                                                                    </li>
+                                                                </template>
+                                                            </ul>
+                                                        </lightning-accordion-section>
+                                                    </template>
+                                                </lightning-accordion>
+                                            </template>
+                                        </lightning-accordion-section>
+                                        <!--Mismatched Datatype Fields-->
+                                        <lightning-accordion-section name="Mismatched Datatype Fields"
+                                            label="Mismatched Data Types of Fields">
+                                            <p class="slds-text-body_regular slds-p-around_small">
+                                                {label.MismatchedDatatypeFieldDescriptionText}</p>
+
+                                            <template if:true={misMatchedFields}>
+                                                <lightning-accordion allow-multiple-sections-open>
+                                                    <template for:each={misMatchedFields} for:item="objectField"
+                                                        for:index="index">
+                                                        <lightning-accordion-section name={objectField.objectType}
+                                                            label={objectField.objectType} key={objectField.objectType}>
+                                                            <ul>
+                                                                <template for:each={objectField.fields}
+                                                                    for:item="field">
+                                                                    <li key={field}>
+                                                                        <lightning-formatted-rich-text value={field}>
+                                                                        </lightning-formatted-rich-text>
+                                                                    </li>
+                                                                </template>
+                                                            </ul>
+                                                        </lightning-accordion-section>
+                                                    </template>
+                                                </lightning-accordion>
+                                            </template>
+                                        </lightning-accordion-section>
+                                        <!--Summary level metadata Analysis-->
+                                        <lightning-accordion-section name="Unmapped Required Fields"
+                                            label="Metadata Analysis">
+                                            <p class="slds-text-body_regular slds-p-around_small">
+                                                {label.SummaryLevelAnalysisDescriptionText}</p>
+                                            <ul class="subsection-body">
+                                                <li class="slds-var-m-bottom_small">
+                                                    <div class="bulletRow">
+                                                        <lightning-icon class="iconSpacing" icon-name="action:info"
+                                                            size="xx-small">
+                                                        </lightning-icon>
+                                                        <p>Total Mapped Source Objects: {totalMappedObjects}</p>
+                                                    </div>
+                                                </li>
+                                                <li class="slds-var-m-bottom_small">
+                                                    <div class="bulletRow">
+                                                        <lightning-icon class="iconSpacing" icon-name="action:info"
+                                                            size="xx-small">
+                                                        </lightning-icon>
+                                                        <p>Total UnMapped Source Objects: {totalUnmappedObjects}</p>
+                                                    </div>
+                                                </li>
+                                                <li class="slds-var-m-bottom_small">
+                                                    <div class="bulletRow">
+                                                        <lightning-icon class="iconSpacing" icon-name="action:info"
+                                                            size="xx-small">
+                                                        </lightning-icon>
+                                                        <p>Total Apex Classes Affected in Source:
+                                                            {totalApexClassesAffected}</p>
+                                                    </div>
+                                                </li>
+                                                <li class="slds-var-m-bottom_small">
+                                                    <div class="bulletRow">
+                                                        <lightning-icon class="iconSpacing" icon-name="action:info"
+                                                            size="xx-small">
+                                                        </lightning-icon>
+                                                        <p>Total Page Layouts Affected in Source:
+                                                            {totalPageLayoutsAffected}</p>
+                                                    </div>
+                                                </li>
+                                                <li class="slds-var-m-bottom_small">
+                                                    <div class="bulletRow">
+                                                        <lightning-icon class="iconSpacing" icon-name="action:info"
+                                                            size="xx-small">
+                                                        </lightning-icon>
+                                                        <p>Total Record Types Affected in Source:
+                                                            {totalRecordTypesAffected}</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </lightning-accordion-section>
+                                        <ul class="subsection-body">
+                                            <li>
+                                                <div class="bulletRow">
+                                                    <lightning-formatted-rich-text
+                                                        value={label.mappingDisclaimer}></lightning-formatted-rich-text>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </template>
+
+                                    <template if:true={section.isProfileAnalysisSection}>
+                                        <template if:true={hasAccessData}>
+                                            <div class="slds-scrollable_y datatable">
+                                                <lightning-tree-grid key-field="uuid" hide-checkbox-column="true"
+                                                    columns={accessInfoColumns} data={accessData}>
+                                                </lightning-tree-grid>
+                                            </div>
+                                        </template>
+                                        <template if:false={hasAccessData}>
+                                            <p class="slds-text-body_regular slds-p-around_small"
+                                                style="font-weight: bold;">
+                                                {label.assessmentResultsEmptyTable}</p>
+                                        </template>
+                                    </template>
+
+                                    <template if:true={section.isSharingSettingAnalysisSection}>
+                                        <template if:true={hasSharingSettingData}>
+                                            <div class="slds-scrollable_y datatable">
+                                                <lightning-tree-grid key-field="uuid" hide-checkbox-column="true"
+                                                    columns={sharingSettingColumns} data={sharingSettingData}>
+                                                </lightning-tree-grid>
+                                            </div>
+                                        </template>
+                                        <template if:false={hasSharingSettingData}>
+                                            <p class="slds-text-body_regular slds-p-around_small"
+                                                style="font-weight: bold;">
+                                                {label.assessmentResultsEmptyTable}</p>
+                                        </template>
+                                    </template>
+
+                                    <template if:true={section.isFieldAnalysisSection}>
+                                        <c-field-analysis-section label={label} encryption-columns={encryptionColumns}
+                                            encryption-data={encryptionData} field-audit-columns={fieldAuditColumns}
+                                            field-audit-data={fieldAuditData}>
+                                        </c-field-analysis-section>
+                                    </template>
+                                </lightning-accordion-section>
+                            </template>
+
+                        </template>
+                    </lightning-accordion>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </template>
+    </template>
+</template>

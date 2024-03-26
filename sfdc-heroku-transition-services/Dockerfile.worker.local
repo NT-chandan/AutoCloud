@@ -1,0 +1,52 @@
+# * Copyright (c) 2023, Salesforce, Inc.
+# * All rights reserved.
+# * SPDX-License-Identifier: Apache 2.0 Clause
+# * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+
+# TS BUILDER CONFIG
+#FROM alpine
+FROM node:18-alpine
+#Install Node
+#RUN apk add --update nodejs npm
+
+#Install SFDX CLI
+#RUN npm -g config set user root
+RUN npm install --global sfdx-cli
+
+# Installs latest Chromium (89) package.
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    freetype-dev \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    yarn
+
+# Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+# Install Puppeteer v6.0.0 works with Chromium 89.
+RUN yarn add puppeteer@6.0.0
+
+# Add user for Puppeteer so we don't need --no-sandbox.
+RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
+    && mkdir -p /home/pptruser/Downloads /app \
+    && chown -R pptruser:pptruser /home/pptruser \
+    && chown -R pptruser:pptruser /app
+
+#Prepare app files and install node modules
+WORKDIR /app
+COPY ["package.json", "package-lock.json*", "tsconfig.json", "./"]
+RUN npm install
+
+#Update font cache
+RUN fc-cache -f -v
+
+# Run everything after as non-privileged user.
+USER pptruser
+
+#Run application
+CMD ["npm", "run", "watch"]

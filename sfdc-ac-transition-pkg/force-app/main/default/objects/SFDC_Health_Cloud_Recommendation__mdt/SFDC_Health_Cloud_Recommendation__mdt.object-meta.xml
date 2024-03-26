@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Recommendations specifically geared towards providing Pre-Sales text (which can potentially be place in any spot within the assessment report)</description>
+    <label>SFDC Health Cloud Recommendation</label>
+    <pluralLabel>SFDC Health Cloud Recommendations</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

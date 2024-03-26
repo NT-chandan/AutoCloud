@@ -1,0 +1,124 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="migration-analysis" class="report-results section-content">
+
+    <h3>{{subtitle}}</h3>
+
+    {{^isImage}}
+        <div class="subsection-body">{{ body }}</div>
+    {{/isImage}}
+
+    <ul class="recommended-settings-list">
+        <li>
+            {{#assessmentResults.reportSummaryResults.recommendedSettings.hasContactToMultipleAccounts}}
+                <span class="icon-container approval circle">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path
+                        d="M19 43.6L2.5 27c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l12.4 12.5c.4.4 1.1.4 1.5 0l24.3-24.5c.6-.6 1.6-.6 2.2 0l2.2 2.2c.6.6.6 1.6 0 2.2L21.2 43.6c-.6.7-1.6.7-2.2 0z"
+                        ></path>
+                    </svg>
+                </span>
+            {{/assessmentResults.reportSummaryResults.recommendedSettings.hasContactToMultipleAccounts}}
+            {{^assessmentResults.reportSummaryResults.recommendedSettings.hasContactToMultipleAccounts}}
+                <span class="icon-container close circle">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path
+                        d="M31.6,25.8l13.1-13.1c0.6-0.6,0.6-1.5,0-2.1l-2.1-2.1c-0.6-0.6-1.5-0.6-2.1,0L27.4,21.6	c-0.4,0.4-1,0.4-1.4,0L12.9,8.4c-0.6-0.6-1.5-0.6-2.1,0l-2.1,2.1c-0.6,0.6-0.6,1.5,0,2.1l13.1,13.1c0.4,0.4,0.4,1,0,1.4L8.6,40.3	c-0.6,0.6-0.6,1.5,0,2.1l2.1,2.1c0.6,0.6,1.5,0.6,2.1,0L26,31.4c0.4-0.4,1-0.4,1.4,0l13.1,13.1c0.6,0.6,1.5,0.6,2.1,0l2.1-2.1	c0.6-0.6,0.6-1.5,0-2.1L31.6,27.2C31.3,26.8,31.3,26.2,31.6,25.8z"
+                        ></path>
+                    </svg>
+                </span>
+            {{/assessmentResults.reportSummaryResults.recommendedSettings.hasContactToMultipleAccounts}}
+            {{label.recommendedSettingsMultipleAccounts}}
+        </li>
+        <li>
+            {{#assessmentResults.reportSummaryResults.recommendedSettings.hasLex}}
+                <span class="icon-container approval circle">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path
+                        d="M19 43.6L2.5 27c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l12.4 12.5c.4.4 1.1.4 1.5 0l24.3-24.5c.6-.6 1.6-.6 2.2 0l2.2 2.2c.6.6.6 1.6 0 2.2L21.2 43.6c-.6.7-1.6.7-2.2 0z"
+                        ></path>
+                    </svg>
+                </span>
+            {{/assessmentResults.reportSummaryResults.recommendedSettings.hasLex}}
+            {{^assessmentResults.reportSummaryResults.recommendedSettings.hasLex}}
+               <span class="icon-container close circle">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path
+                        d="M31.6,25.8l13.1-13.1c0.6-0.6,0.6-1.5,0-2.1l-2.1-2.1c-0.6-0.6-1.5-0.6-2.1,0L27.4,21.6	c-0.4,0.4-1,0.4-1.4,0L12.9,8.4c-0.6-0.6-1.5-0.6-2.1,0l-2.1,2.1c-0.6,0.6-0.6,1.5,0,2.1l13.1,13.1c0.4,0.4,0.4,1,0,1.4L8.6,40.3	c-0.6,0.6-0.6,1.5,0,2.1l2.1,2.1c0.6,0.6,1.5,0.6,2.1,0L26,31.4c0.4-0.4,1-0.4,1.4,0l13.1,13.1c0.6,0.6,1.5,0.6,2.1,0l2.1-2.1	c0.6-0.6,0.6-1.5,0-2.1L31.6,27.2C31.3,26.8,31.3,26.2,31.6,25.8z"
+                        ></path>
+                    </svg>
+                </span>
+            {{/assessmentResults.reportSummaryResults.recommendedSettings.hasLex}}
+            {{label.recommendedSettingsLEX}}
+        </li>
+        <li>
+            {{#assessmentResults.reportSummaryResults.recommendedSettings.hasPersonAccounts}}
+                <span class="icon-container approval circle">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path
+                        d="M19 43.6L2.5 27c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l12.4 12.5c.4.4 1.1.4 1.5 0l24.3-24.5c.6-.6 1.6-.6 2.2 0l2.2 2.2c.6.6.6 1.6 0 2.2L21.2 43.6c-.6.7-1.6.7-2.2 0z"
+                        ></path>
+                    </svg>
+                </span>
+            {{/assessmentResults.reportSummaryResults.recommendedSettings.hasPersonAccounts}}
+            {{^assessmentResults.reportSummaryResults.recommendedSettings.hasPersonAccounts}}
+                <span class="icon-container close circle">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path
+                        d="M31.6,25.8l13.1-13.1c0.6-0.6,0.6-1.5,0-2.1l-2.1-2.1c-0.6-0.6-1.5-0.6-2.1,0L27.4,21.6	c-0.4,0.4-1,0.4-1.4,0L12.9,8.4c-0.6-0.6-1.5-0.6-2.1,0l-2.1,2.1c-0.6,0.6-0.6,1.5,0,2.1l13.1,13.1c0.4,0.4,0.4,1,0,1.4L8.6,40.3	c-0.6,0.6-0.6,1.5,0,2.1l2.1,2.1c0.6,0.6,1.5,0.6,2.1,0L26,31.4c0.4-0.4,1-0.4,1.4,0l13.1,13.1c0.6,0.6,1.5,0.6,2.1,0l2.1-2.1	c0.6-0.6,0.6-1.5,0-2.1L31.6,27.2C31.3,26.8,31.3,26.2,31.6,25.8z"
+                        ></path>
+                    </svg>
+                </span>
+            {{/assessmentResults.reportSummaryResults.recommendedSettings.hasPersonAccounts}}
+            {{label.recommendedSettingsPersonAccounts}}
+        </li>
+        <li>
+            {{#assessmentResults.reportSummaryResults.recommendedSettings.hasPackage}}
+                <span class="icon-container approval circle">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path
+                        d="M19 43.6L2.5 27c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l12.4 12.5c.4.4 1.1.4 1.5 0l24.3-24.5c.6-.6 1.6-.6 2.2 0l2.2 2.2c.6.6.6 1.6 0 2.2L21.2 43.6c-.6.7-1.6.7-2.2 0z"
+                        ></path>
+                    </svg>
+                </span>
+            {{/assessmentResults.reportSummaryResults.recommendedSettings.hasPackage}}
+            {{^assessmentResults.reportSummaryResults.recommendedSettings.hasPackage}}
+                <span class="icon-container close circle">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path
+                        d="M31.6,25.8l13.1-13.1c0.6-0.6,0.6-1.5,0-2.1l-2.1-2.1c-0.6-0.6-1.5-0.6-2.1,0L27.4,21.6	c-0.4,0.4-1,0.4-1.4,0L12.9,8.4c-0.6-0.6-1.5-0.6-2.1,0l-2.1,2.1c-0.6,0.6-0.6,1.5,0,2.1l13.1,13.1c0.4,0.4,0.4,1,0,1.4L8.6,40.3	c-0.6,0.6-0.6,1.5,0,2.1l2.1,2.1c0.6,0.6,1.5,0.6,2.1,0L26,31.4c0.4-0.4,1-0.4,1.4,0l13.1,13.1c0.6,0.6,1.5,0.6,2.1,0l2.1-2.1	c0.6-0.6,0.6-1.5,0-2.1L31.6,27.2C31.3,26.8,31.3,26.2,31.6,25.8z"
+                        ></path>
+                    </svg>
+                </span>
+            {{/assessmentResults.reportSummaryResults.recommendedSettings.hasPackage}}
+            {{label.recommendedSettingsFeaturePackage}}
+            
+        </li>
+        <li>
+            {{#assessmentResults.reportSummaryResults.recommendedSettings.isLicensesAvailable}}
+                <span class="icon-container approval circle">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path
+                        d="M19 43.6L2.5 27c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l12.4 12.5c.4.4 1.1.4 1.5 0l24.3-24.5c.6-.6 1.6-.6 2.2 0l2.2 2.2c.6.6.6 1.6 0 2.2L21.2 43.6c-.6.7-1.6.7-2.2 0z"
+                        ></path>
+                    </svg>
+                </span>
+            {{/assessmentResults.reportSummaryResults.recommendedSettings.isLicensesAvailable}}
+            {{^assessmentResults.reportSummaryResults.recommendedSettings.isLicensesAvailable}}
+                <span class="icon-container close circle">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path
+                        d="M31.6,25.8l13.1-13.1c0.6-0.6,0.6-1.5,0-2.1l-2.1-2.1c-0.6-0.6-1.5-0.6-2.1,0L27.4,21.6	c-0.4,0.4-1,0.4-1.4,0L12.9,8.4c-0.6-0.6-1.5-0.6-2.1,0l-2.1,2.1c-0.6,0.6-0.6,1.5,0,2.1l13.1,13.1c0.4,0.4,0.4,1,0,1.4L8.6,40.3	c-0.6,0.6-0.6,1.5,0,2.1l2.1,2.1c0.6,0.6,1.5,0.6,2.1,0L26,31.4c0.4-0.4,1-0.4,1.4,0l13.1,13.1c0.6,0.6,1.5,0.6,2.1,0l2.1-2.1	c0.6-0.6,0.6-1.5,0-2.1L31.6,27.2C31.3,26.8,31.3,26.2,31.6,25.8z"
+                        ></path>
+                    </svg>
+                </span>
+            {{/assessmentResults.reportSummaryResults.recommendedSettings.isLicensesAvailable}}
+            {{label.recommendedSettingsFeaturePackageLicenses}}
+        </li>
+    </ul>
+    
+</div>

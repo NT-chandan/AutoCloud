@@ -1,0 +1,30 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="assessment-results" class="report-results section-content">
+    <table>
+        <thead>
+        <tr class="heading">
+            <th>{{ label.assessmentTableFeature }}</th>
+            <th>{{ label.assessmentTablePriority }}</th>
+            <th>{{ label.assessmentTableRecommendation }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#assessmentResults.assessmentResults}}
+            <tr class="item">
+                <td>
+                    <a href="{{ replaceWithFscUrl }}">{{ replaceWithFsc }}</a>
+                </td>
+
+                <td>{{ priority }}</td>
+                <td>{{ reasonText }}</td>
+                
+            </tr>
+        {{/assessmentResults.assessmentResults}}
+        </tbody>
+    </table>
+</div>

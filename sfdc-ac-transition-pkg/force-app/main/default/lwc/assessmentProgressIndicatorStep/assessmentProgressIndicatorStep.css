@@ -1,0 +1,21 @@
+.container {
+    align-items: center;
+    flex-direction: column;
+}
+
+.textSection {
+    color: rgb(118 118 118);
+    margin-top: 1.25rem;
+    position: absolute;
+    width: 28%;
+    text-align: center;
+}
+
+.activeText {
+    color: rgb(8, 7, 7);
+}
+
+.label {
+    font-size: 1.4rem;
+    margin-bottom: .25rem;
+}

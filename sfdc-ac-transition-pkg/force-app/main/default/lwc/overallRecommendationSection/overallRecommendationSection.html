@@ -1,0 +1,12 @@
+<template>
+    <div class="slds-setup-assistant">
+        <c-assessment-recommendation icon-size-override="x-small" recommendation={overallRecommendation}></c-assessment-recommendation>
+    </div>
+    <template for:each={recommendations} for:item="rec">
+        <ol class="slds-setup-assistant" key={rec.text}>
+            <li class="slds-setup-assistant__item">
+                <c-assessment-recommendation icon-size-override="x-small" recommendation={rec}></c-assessment-recommendation>
+            </li>
+        </ol>
+    </template>
+</template>

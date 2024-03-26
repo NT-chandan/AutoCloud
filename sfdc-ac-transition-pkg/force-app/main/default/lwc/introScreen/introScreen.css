@@ -1,0 +1,88 @@
+.appContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.mainComponent {
+    width: 74%;
+}
+
+.expanded {
+    width: calc(100% - 74px);
+}
+
+.sideComponent {
+    margin-left: auto;
+    width: 25.5%;
+}
+
+.collapsed {
+    width: 4rem;
+}
+
+.introScreen {
+    background: white;
+    border-radius: .25rem;
+}
+
+.container {
+    padding: 0 1rem 1rem 1rem;
+}
+
+.titleSection {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 1rem 0 1rem;
+}
+
+.titleLeft {
+    margin-right: auto;
+}
+
+.titleRight {
+    margin-left: auto;
+}
+
+.introDescription {
+    display: block;
+    padding: 0 1rem;
+}
+
+.nameCol {
+    width: 15rem;
+}
+
+.descriptionCol {
+    width: 17.5rem;
+}
+
+.popoverPosition {
+    position:absolute;
+    top:0;
+    left:0.0625rem;
+}
+
+.titleStyle {
+    margin-bottom: 2.5rem;
+}
+
+.actionSpacing {
+    margin-left: 0.5rem;
+}
+
+.alertLink {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.sidebarItem + .sidebarItem {
+    margin-top: 1rem;
+}
+
+.itemCollapsed {
+    margin-left: auto;
+}
+
+.alertIcon {
+    margin-right: 0.4rem;
+}

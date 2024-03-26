@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <description>Configurable Notification Component</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Configurable Notification Component</masterLabel>
+    <targets>
+        <!-- <target>lightning__AppPage</target> -->
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__Tab</target>
+    </targets>
+    <targetConfigs>
+        <!-- <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Assessment__c</object>
+            </objects>
+        </targetConfig> -->
+        <targetConfig targets="lightning__RecordPage,lightning__HomePage">
+            <property label="SLDS Classes - Parent" name="outerDivClass" type="String" description="Space-delimited list of slds classes for the outer Div tag"
+                default="slds-notify slds-notify_alert slds-align_absolute-center slds-m-right_x-small" />
+            <property label="Notification Text" name="componentRichText" type="String" description="Enter Notification text or Custom Label here."
+                placeholder="Notification text appears here." />
+            <property label="SLDS Classes - Parent Span tag" name="spanContainingSvgClass" type="String" description="Space-delimited list of slds classes for the parent Span tag"
+                default="slds-icon_container slds-icon-utility-error slds-m-right_x-small" />
+            <property label="SVG Use XLink Path" name="svgXlinkPath" type="String" description="The relative path to the Svg Icon file"   
+                default="/assets/icons/utility-sprite/svg/symbols.svg#error" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

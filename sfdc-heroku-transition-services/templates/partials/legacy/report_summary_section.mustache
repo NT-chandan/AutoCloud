@@ -1,0 +1,49 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="report-summary" class="report-results">
+
+    <h2>{{ subtitle }}</h2>
+    
+    {{#subsections}}    
+
+        {{#isUnderstandingThisReportSection}}
+            __UNDERSTANDING_THIS_REPORT__
+        {{/isUnderstandingThisReportSection}}
+
+        {{#isSystemOverviewSubsection}}
+            __SYSTEM_OVERVIEW__
+        {{/isSystemOverviewSubsection}}
+        
+        {{#isNotableUsedObjectsSubsection}}
+            __NOTABLE_USED_OBJECTS__
+        {{/isNotableUsedObjectsSubsection}}
+        
+        {{#isTransitionApproachSubsection}}
+            __RECOMMENDED_TRANSITION_APPROACH__
+        {{/isTransitionApproachSubsection}}
+        
+        {{#isRecommendedSettingsSubsection}}
+            __RECOMMENDED_SETTINGS__
+        {{/isRecommendedSettingsSubsection}}
+        
+        {{#isBasisOfAssessmentSubsection}}
+            __BASIS_OF_ASSESSMENT__
+        {{/isBasisOfAssessmentSubsection}}
+        
+        {{#isConsiderationsSubsection}}
+            __MAJOR_CONSIDERATIONS__
+        {{/isConsiderationsSubsection}}
+        
+        {{#isMigrationAnalysisSubsection}}
+            __MIGRATION_ANALYSIS_SUMMARY__
+        {{/isMigrationAnalysisSubsection}}
+
+        <div class="page-break"></div>  
+
+    {{/subsections}}
+
+</div>

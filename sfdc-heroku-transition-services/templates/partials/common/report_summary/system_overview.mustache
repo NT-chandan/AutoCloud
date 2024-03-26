@@ -1,0 +1,49 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="migration-analysis" class="report-results section-content">
+    <h3>{{subtitle}}</h3>
+
+    {{^isImage}}
+        <div class="subsection-body">{{{ body }}}</div>
+    {{/isImage}}
+
+    <ul class="system-overview-list">
+        <li><strong>{{label.overviewLicenses}}</strong> {{assessmentResults.reportSummaryResults.licenseCount}}</li>
+        <li><strong>{{label.overviewLicensesAssigned}}</strong> {{assessmentResults.reportSummaryResults.assignedLicenseCount}}</li>
+        <li><strong>{{label.overviewProfiles}}</strong> {{assessmentResults.reportSummaryResults.profileCount}}</li>
+        <li><strong>{{label.overviewRoles}}</strong> {{assessmentResults.reportSummaryResults.roleCount}}</li>
+        <li><strong>{{label.overviewFlows}}</strong> {{assessmentResults.reportSummaryResults.flowCount}}</li>
+        <li><strong>{{label.overviewProcessBuilderFlows}}</strong> {{assessmentResults.reportSummaryResults.processBuilderFlowCount}}</li>
+        <li><strong>{{label.overviewWorkflows}}</strong> {{assessmentResults.reportSummaryResults.workflowCount}}</li>
+        <li><strong>{{label.overviewQueues}}</strong> {{assessmentResults.reportSummaryResults.queueCount}}</li>
+        <li><strong>{{label.overviewEmailToCase}}</strong> {{assessmentResults.reportSummaryResults.emailToCaseCount}}</li>
+        <li><strong>{{label.overviewCustomObjects}}</strong> {{assessmentResults.reportSummaryResults.customObjectCount}}</li>
+        <li><strong>{{label.overviewApexTriggers}}</strong> {{assessmentResults.reportSummaryResults.apexTriggerCount}}</li>
+        <li><strong>{{label.overviewApexClasses}}</strong> {{assessmentResults.reportSummaryResults.apexClassCount}}</li>
+        <li><strong>{{label.overviewCustomApps}}</strong> {{assessmentResults.reportSummaryResults.customAppCount}}</li>
+    </ul>
+
+    <ul class="system-overview-list">
+        <li><strong>{{label.overviewDataStorage}}</strong> {{assessmentResults.reportSummaryResults.dataUsage}}%</li>
+        <li><strong>{{label.overviewFileStorage}}</strong> {{assessmentResults.reportSummaryResults.fileStorageUsage}}%</li>
+    </ul>
+
+    <ul class="system-overview-list">
+        <li><strong>{{label.permissionsProfiles}}</strong> {{assessmentResults.reportSummaryResults.profileCount}}</li>
+        <li><strong>{{label.permissionsProfilesLegacy}}</strong> {{assessmentResults.reportSummaryResults.profilesRelatedLegacyObjects}}</li>
+        <li><strong>{{label.permissionsPermissionSets}}</strong> {{assessmentResults.reportSummaryResults.permissionSetCount}}</li>
+        <li><strong>{{label.permissionsPermissionSetsLegacy}}</strong> {{assessmentResults.reportSummaryResults.permissionSetsRelatedLegacyObjects}}</li>
+    </ul>
+
+    {{#assessmentResults.reportSummaryResults.enabledChatFeatures.length}}
+    <p><strong>{{label.overviewEnabledFeatures}}</strong></p>
+    <ul>
+            {{#assessmentResults.reportSummaryResults.enabledChatFeatures}}<li>{{.}}</li>{{/assessmentResults.reportSummaryResults.enabledChatFeatures}}
+    </ul>
+    {{/assessmentResults.reportSummaryResults.enabledChatFeatures.length}}
+
+</div>

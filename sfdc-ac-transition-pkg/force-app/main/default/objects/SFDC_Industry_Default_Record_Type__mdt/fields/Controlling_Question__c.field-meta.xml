@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Controlling_Question__c</fullName>
+    <description>The question that this default originates from.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Controlling Question</label>
+    <referenceTo>SFDC_Industry_Assessment_Question__mdt</referenceTo>
+    <relationshipLabel>SFDC Industry Default Record Types</relationshipLabel>
+    <relationshipName>SFDC_Industry_Default_Record_Types</relationshipName>
+    <required>true</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

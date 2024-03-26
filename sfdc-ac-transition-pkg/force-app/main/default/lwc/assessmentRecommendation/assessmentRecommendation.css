@@ -1,0 +1,7 @@
+.icon-warning {
+    --sds-c-icon-color-foreground-default: rgb(254, 147, 57);
+}
+
+.icon-info {
+    --sds-c-icon-color-foreground-default: rgb(252 192 3);
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Today</fullName>
+    <columns>NAME</columns>
+    <columns>AsyncType__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>StartDatetime__c</columns>
+    <columns>NumberOfAttempts__c</columns>
+    <columns>Error__c</columns>
+    <columns>ErrorMessage__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>All Today</label>
+</ListView>

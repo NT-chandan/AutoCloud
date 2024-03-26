@@ -1,0 +1,11 @@
+#execute once for establishing a new package -- only done once against DevHub if not already listed in sfdx-project.json
+sfdx force:package:create --name "Health Cloud Transition Assistant" --path force-app --packagetype Managed --errornotificationusername <youruser>@zennify.com
+
+#execute for generating package new versions -- before running this confirm new versionNumber and ancestorVersion in sfdx-project.json
+sfdx force:package:version:create --package "Health Cloud Transition Assistant" --codecoverage --installationkey hcta2021 --wait 30 -f config/project-scratch-def.json --skipancestorcheck
+
+#execute to promote from beta to managed release for prod usage (update name with new version number)
+sfdx force:package:version:promote --package "Health Cloud Transition Assistant@1.x.0-0"
+
+#optional run to display version details, id, code coverage, etc.
+sfdx force:package:version:report --package "Health Cloud Transition Assistant@1.x.0-0"

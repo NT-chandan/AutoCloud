@@ -1,0 +1,17 @@
+# All packages versions to json file with verbosity
+# sfdx force:package:version:list -v zennify --packages 0Ho2J0000008OJNSA2 --verbose --json > scripts/cli/uat/data/packageversion.json
+
+# uat package versions
+# sfdx force:package:version:list -v zennify --packages 0Ho2J0000008OJNSA2 --verbose --json > scripts/cli/uat/data/packageversion.json
+
+# All packages versions to file
+# sfdx force:package:version:list -v zennify > scripts/cli/uat/data/packageversion.txt
+
+# modified in the last N days to file
+# sfdx force:package:version:list -v zennify --packages 0Ho2J0000008OJNSA2--modifiedlastdays 0 > scripts/cli/uat/data/packageversion_lastndays.txt
+
+# uat package versions concise to file
+# sfdx force:package:version:list -v zennify --packages 0Ho2J0000008OJNSA2 --concise > scripts/cli/uat/data/packageversion_concise.txt
+
+# uat package versions to file
+sfdx force:package:version:list -v zennify --packages 0Ho2J0000008OJNSA2 > scripts/cli/uat/data/packageversion_0Ho2J0000008OJNSA2.txt

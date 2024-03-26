@@ -1,0 +1,17 @@
+# All packages versions to json file with verbosity
+# sfdx force:package:version:list -v zennify --packages 0Ho2J0000008OJISA2 --verbose --json > scripts/cli/qa/data/packageversion.json
+
+# qa package versions
+# sfdx force:package:version:list -v zennify --packages 0Ho2J0000008OJISA2 --verbose --json > scripts/cli/qa/data/packageversion.json
+
+# All packages versions to file
+# sfdx force:package:version:list -v zennify > scripts/cli/qa/data/packageversion.txt
+
+# modified in the last N days to file
+# sfdx force:package:version:list -v zennify --packages 0Ho2J0000008OJISA2--modifiedlastdays 0 > scripts/cli/qa/data/packageversion_lastndays.txt
+
+# qa package versions concise to file
+# sfdx force:package:version:list -v zennify --packages 0Ho2J0000008OJISA2 --concise > scripts/cli/qa/data/packageversion_concise.txt
+
+# qa package versions to file
+sfdx force:package:version:list -v zennify --packages 0Ho2J0000008OJISA2 > scripts/cli/qa/data/packageversion_0Ho2J0000008OJISA2.txt

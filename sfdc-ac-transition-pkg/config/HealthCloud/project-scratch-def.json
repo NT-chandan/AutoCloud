@@ -1,0 +1,25 @@
+{
+  "orgName": "Health Cloud Transition Assistant",
+  "edition": "Enterprise",
+  "features": [
+    "PlatformCache",
+    "ProviderFreePlatformCache",
+    "HealthCloudUser",
+    "PersonAccounts",
+    "ContactsToMultipleAccounts"
+  ],
+  "hasSampleData": true,
+  "settings": {
+    "languageSettings": {
+      "enableTranslationWorkbench":  true,
+      "enableEndUserLanguages": true
+    },
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "securitySettings": {},
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    }
+  }
+}

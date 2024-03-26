@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PDF_Generation_Complete__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Denotes when Heroku has finished processing the PDF report version of the Assessment</description>
+    <externalId>false</externalId>
+    <label>PDF Generation Complete</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

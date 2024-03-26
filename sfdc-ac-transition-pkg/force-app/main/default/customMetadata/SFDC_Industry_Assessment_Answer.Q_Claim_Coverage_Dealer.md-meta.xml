@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Q - Claim Coverage</label>
+    <protected>true</protected>
+    <values>
+        <field>Bottom_Help_Text_Label__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Follow_Up_To__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Help_Text_Label__c</field>
+        <value xsi:type="xsd:string">AnswerClaimCoverageHelp</value>
+    </values>
+    <values>
+        <field>Index__c</field>
+        <value xsi:type="xsd:double">3.0</value>
+    </values>
+    <values>
+        <field>Mapped_Objects__c</field>
+        <value xsi:type="xsd:string">ClaimCoverage</value>
+    </values>
+    <values>
+        <field>Question_Label__c</field>
+        <value xsi:type="xsd:string">AnswerClaimCoverage</value>
+    </values>
+    <values>
+        <field>Question__c</field>
+        <value xsi:type="xsd:string">AC_Warranty_Claims_Dealer</value>
+    </values>
+    <values>
+        <field>Required_Vertical__c</field>
+        <value xsi:type="xsd:string">Dealers</value>
+    </values>
+    <values>
+        <field>Verbose_Help_Text_Label__c</field>
+        <value xsi:type="xsd:string">AnswerClaimCoverageHelpV</value>
+    </values>
+</CustomMetadata>

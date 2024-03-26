@@ -1,0 +1,42 @@
+.appContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.introScreen {
+    background: white;
+    border-radius: .25rem;
+}
+
+.container {
+    padding: 0 1rem 1rem 1rem;
+}
+
+.titleSection {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 1rem 0 1rem;
+}
+
+.titleLeft {
+    margin-right: auto;
+}
+
+.titleRight {
+    margin-left: auto;
+}
+
+.introDescription {
+    display: block;
+    padding: 0 1rem;
+}
+
+.popoverPosition {
+    position:absolute;
+    top:0;
+    left:0.0625rem;
+}
+
+.titleStyle {
+    margin-bottom: 2.5rem;
+}

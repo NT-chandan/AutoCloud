@@ -1,0 +1,24 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true,
+      "package": "Automotive Cloud Transition Assistant"
+    },
+    {
+      "path": ".",
+      "package": "AutomotiveTransitionAssistantDev",
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "default": false,
+      "versionDescription": ""
+    }
+  ],
+  "namespace": "AutoTADev",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "54.0",
+  "packageAliases": {
+    "AutomotiveTransitionAssistantDev": "0HoGA000000PB3u0AG",
+    "AutomotiveTransitionAssistantDev@0.1.0-1": "04tGA000004MwXmYAK"
+  }
+}

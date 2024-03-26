@@ -1,0 +1,10 @@
+<template>
+    <p class="slds-m-left_x-small slds-cell-wrap slds-p-vertical_xx-small">
+        <template if:true={inProgressAssessment}>
+            <span class="slds-truncate"><a onclick={fireResumeEvent} tabindex="-1">{assessmentName}</a></span>
+        </template>
+        <template if:false={inProgressAssessment}>
+            <span class="slds-truncate"><a href="javascript:void(0);" onclick={navigateToRecordViewPage} tabindex="-1" data-id={assessmentId}>{assessmentName}</a></span>
+        </template>
+    </p>
+</template>

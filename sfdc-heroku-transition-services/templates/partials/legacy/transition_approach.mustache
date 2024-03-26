@@ -1,0 +1,55 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="transition-approach" class="section-content">
+    <div class="approach-item">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 55px" valign="top">
+                    <!-- ICON -->
+                    {{{ assessmentResults.overallRecommendation.severityIcon }}}
+                </td>
+                <td valign="top">
+                    <h2>{{ assessmentResults.overallRecommendation.text }}</h2>
+
+                    <ul style="list-style-type: none;">
+                        {{#assessmentResults.overallRecommendation.reasons}}
+                            <li>&bull; {{{reason}}}</li>
+                        {{/assessmentResults.overallRecommendation.reasons}}
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<div id="suggested-steps" class="section-content">
+    <h1>{{ label.sectionRecommendationTitle }}</h1>
+
+    {{#assessmentResults.recommendations}}
+        <div class="step-item">
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 55px" valign="top">
+                        <!-- ICON -->
+                        {{{ severityIcon }}}
+                    </td>
+                    <td valign="top">
+                        <h2>{{ text }}</h2>
+
+                        <ul style="list-style-type: none;">
+                            {{#reasons}}
+                                <li>&bull; {{{reason}}}</li>
+                            {{/reasons}}
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    {{/assessmentResults.recommendations}}
+</div>

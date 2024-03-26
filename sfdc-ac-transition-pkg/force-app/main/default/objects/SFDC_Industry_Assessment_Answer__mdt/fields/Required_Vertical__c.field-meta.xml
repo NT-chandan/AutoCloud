@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Vertical__c</fullName>
+    <description>If populated, only displays this answer if the provided vertical is selected during the assessment.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Required Vertical</label>
+    <referenceTo>SFDC_Industry_Vertical__mdt</referenceTo>
+    <relationshipLabel>SFDC Industry Assessment Answers</relationshipLabel>
+    <relationshipName>SFDC_Industry_Assessment_Answers</relationshipName>
+    <required>false</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

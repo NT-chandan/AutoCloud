@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exclusion_List_Active__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>When checked, the Blacklisted Entries (custom metadata) will be subtracted from the Org Objects available for source mapping.</description>
+    <externalId>false</externalId>
+    <label>Exclusion List Active</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

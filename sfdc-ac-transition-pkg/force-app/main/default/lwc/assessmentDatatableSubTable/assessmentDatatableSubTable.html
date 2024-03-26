@@ -1,0 +1,39 @@
+<template>
+    <template if:true={showTable}>
+        <div class="slds-m-vertical_small">
+            <template for:each={tableInfoList} for:item="tableInfo" for:index="index">
+                <template if:true={tableInfo.renderTable}>
+                    <article key={tableInfo.key} class="slds-card slds-card_boundary">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <lightning-icon class="slds-icon_container" icon-name={tableInfo.icon} size="xx-small"></lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <span>{tableInfo.title}</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <article class="slds-card slds-card_boundary slds-is-relative">
+                                <lightning-datatable key={tableInfo.key} 
+                                                    data={tableInfo.data} 
+                                                    columns={tableInfo.columns} 
+                                                    key-field="tableKey" 
+                                                    class="slds-table slds-border_bottom slds-table_bordered slds-table_col-bordered" 
+                                                    default-sort-direction={defaultSortDirection}
+                                                    sorted-direction={sortDirection}
+                                                    sorted-by={sortedBy}
+                                                    onsort={onHandleSort}
+                                                    hide-checkbox-column>
+                                                </lightning-datatable>
+                            </article>
+                        </div>
+                    </article>
+                </template>
+            </template>    
+        </div>
+    </template>
+</template>

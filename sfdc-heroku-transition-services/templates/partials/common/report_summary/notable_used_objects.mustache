@@ -1,0 +1,72 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="migration-analysis" class="report-results section-content">
+
+    <h3>{{subtitle}}</h3>
+
+    {{^isImage}}
+        <div class="subsection-body">{{{ body }}}</div>
+    {{/isImage}}
+
+    <h4 style="margin-top: 25px;">{{ label.coreNotableUsedObjects }}</h4>
+    <table class="notable-objects-table">
+        <thead>
+            <tr class="heading" style="margin-top: 10px">
+                <th>{{ label.tableHeaderName }}</th>
+                <th>{{ label.tableHeaderRecordCount }}</th>
+                <th>{{ label.tableHeaderCustomRecordTypes }}</th>
+                <th>{{ label.tableHeaderProfilesAssigned }}</th>
+                <th>{{ label.tableHeaderRecordsModified }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#assessmentResults.reportSummaryResults.coreNotableObjects}}
+            <tr class="item">
+                <td>{{ objectName }}</td>
+                <td>{{ recordCount }}</td>
+                <td>{{ allRecordTypes }}</td>
+                <td>{{ allProfiles }}</td>
+                <td>{{ modifiedRecords }}</td>
+            </tr>
+        {{/assessmentResults.reportSummaryResults.coreNotableObjects}}
+        </tbody>
+    </table>
+
+    {{^assessmentResults.reportSummaryResults.coreNotableObjects}}
+        <p>{{ label.assessmentResultsEmptyTable }}</p>
+    {{/assessmentResults.reportSummaryResults.coreNotableObjects}}
+
+    <div class="page-break"></div>
+
+    <h4 style="margin-top: 25px;">{{ label.additionalNotableUsedObjects }}</h4>
+    <table class="notable-objects-table">
+        <thead>
+            <tr class="heading" style="margin-top: 10px">
+                <th>{{ label.tableHeaderName }}</th>
+                <th>{{ label.tableHeaderRecordCount }}</th>
+                <th>{{ label.tableHeaderCustomRecordTypes }}</th>
+                <th>{{ label.tableHeaderProfilesAssigned }}</th>
+                <th>{{ label.tableHeaderRecordsModified }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#assessmentResults.reportSummaryResults.additionalNotableObjects}}
+            <tr class="item">
+                <td>{{ objectName }}</td>
+                <td>{{ recordCount }}</td>
+                <td>{{ allRecordTypes }}</td>
+                <td>{{ allProfiles }}</td>
+                <td>{{ modifiedRecords }}</td>
+            </tr>
+        {{/assessmentResults.reportSummaryResults.additionalNotableObjects}}
+        </tbody>
+    </table>
+
+    {{^assessmentResults.reportSummaryResults.additionalNotableObjects}}
+        <p>{{ label.assessmentResultsEmptyTable }}</p>
+    {{/assessmentResults.reportSummaryResults.additionalNotableObjects}}
+</div>

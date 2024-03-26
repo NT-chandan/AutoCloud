@@ -1,0 +1,37 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="migration-analysis" class="report-results section-content">
+
+    <h3>{{subtitle}}</h3>
+
+    {{^isImage}}
+        <div class="subsection-body">{{{ body }}}</div>
+    {{/isImage}}
+
+    <table>
+        <thead>
+        <tr class="heading" style="margin-top: 10px">
+            <th>{{ label.tableHeaderRecommendation }}</th>
+            <th>{{ label.tableHeaderFeatureTransition }}</th>
+            <th>{{ label.tableHeaderGoal }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#assessmentResults.reportSummaryResults.basisOfAssessment}}
+            <tr class="item">
+                <td>{{ recommendation }}</td>
+                <td><a href="{{ featureUrl }}" target="_blank">{{ feature }}</a></td>
+                <td>{{ goal }}</td>
+            </tr>
+        {{/assessmentResults.reportSummaryResults.basisOfAssessment}}
+        </tbody>
+    </table>
+    {{^assessmentResults.reportSummaryResults.basisOfAssessment}}
+        <p>{{ label.assessmentResultsEmptyTable }}</p>
+    {{/assessmentResults.reportSummaryResults.basisOfAssessment}}
+    
+</div>

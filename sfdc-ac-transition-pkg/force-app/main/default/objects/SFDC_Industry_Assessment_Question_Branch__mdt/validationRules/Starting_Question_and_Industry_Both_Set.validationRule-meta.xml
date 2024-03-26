@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Starting_Question_and_Industry_Both_Set</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(ISBLANK(Industry__c)) &amp;&amp;  NOT(ISBLANK(Controlling_Question__c))</errorConditionFormula>
+    <errorMessage>A Controlling Question can not be set when Industry is defined.</errorMessage>
+</ValidationRule>

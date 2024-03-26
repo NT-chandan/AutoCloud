@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related_Object_Id__c</fullName>
+    <description>The Id of the related Object for which the log message was generated.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The Id of the related Object for which the log message was generated.</inlineHelpText>
+    <label>Related Object Id</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

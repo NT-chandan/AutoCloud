@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Has_Apex_Sharing_on_CDS_Object__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Whether AccountShare or OpportunityShare reference has been found in Apex</description>
+    <externalId>false</externalId>
+    <label>Has Apex Sharing on CDS Object</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

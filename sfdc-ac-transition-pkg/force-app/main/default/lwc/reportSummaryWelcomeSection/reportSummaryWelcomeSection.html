@@ -1,0 +1,85 @@
+<template>
+    <lightning-layout horizontal-align="space">
+
+        <lightning-layout-item padding="horizontal-small" size="4">
+            <div class="summary-welcome-section">
+                <h4>{label.whatsInHeader}</h4>
+                <p><lightning-formatted-rich-text value={label.whatsInText}></lightning-formatted-rich-text></p>
+                <p><lightning-formatted-rich-text value={label.whatsInTextNote}></lightning-formatted-rich-text></p>
+            </div>
+
+            <div class="summary-welcome-section">
+                <h4>{label.howToUseHeader}</h4>
+                <p><lightning-formatted-rich-text value={label.howToUseText}></lightning-formatted-rich-text></p>
+            </div>
+
+        </lightning-layout-item>
+
+        <lightning-layout-item padding="horizontal-small" size="4">
+            <div class="summary-welcome-section">
+                <h4>{label.impactScaleHeader}</h4>
+                <div class="impact-scale-item" style="color: white">
+                    <div class="impact-scale-symbol slds-current-color">
+                        <lightning-icon icon-name="action:approval" size="medium" alternative-text="Approval"
+                            title="Approval"></lightning-icon>
+                    </div>
+                    <div class="impact-scale-text" style="color: rgb(8, 7, 7)">{label.impactScaleApproval}</div>
+                </div>
+                <div class="impact-scale-item" style="color: #fcc003;">
+                    <div class="impact-scale-symbol slds-current-color">
+                        <lightning-icon icon-name="utility:info" size="large" alternative-text="Solution"
+                            title="Solution"></lightning-icon>
+                    </div>
+                    <div class="impact-scale-text" style="color: rgb(8, 7, 7)">{label.impactScaleReview}</div>
+                </div>
+                <div class="impact-scale-item" style="color: #fe9339">
+                    <div class="impact-scale-symbol slds-current-color">
+                        <lightning-icon icon-name="utility:warning" size="large" alternative-text="Warning"
+                            title="Warning"></lightning-icon>
+                    </div>
+                    <div class="impact-scale-text" style="color: rgb(8, 7, 7)">{label.impactScaleWarning}</div>
+                </div>
+                <div class="impact-scale-item" style="color: #ba0517">
+                    <div class="impact-scale-symbol slds-current-color">
+                        <lightning-icon icon-name="utility:error" size="large" alternative-text="Solution"
+                            title="Solution"></lightning-icon>
+                    </div>
+                    <div class="impact-scale-text" style="color: rgb(8, 7, 7)">{label.impactScaleSolution}</div>
+                </div>
+                <div class="impact-scale-item" style="color: white">
+                    <div class="impact-scale-symbol slds-current-color">
+                        <lightning-icon icon-name="action:close" size="medium" alternative-text="Close"
+                            title="Close"></lightning-icon>
+                    </div>
+                    <div class="impact-scale-text" style="color: rgb(8, 7, 7)">{label.impactScaleClose}</div>
+                </div>
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item padding="horizontal-small" size="4">
+            <div class="summary-welcome-section">
+                <h4>{label.bestPracticeHeader}</h4>
+                <p><lightning-formatted-rich-text value={label.bestPracticeText}></lightning-formatted-rich-text></p>
+            </div>
+
+            <div class="summary-welcome-section">
+                <h4>{label.accelerateHeader}</h4>
+                <p>{label.accelerateText}</p>
+
+                <p><a href="https://help.salesforce.com/s/articleView?id=sf.auto_learn_about.htm&type=5"
+                        target="_blank"><strong>{label.fscSuperbadgeLink}</strong></a></p>
+            </div>
+
+            <div class="summary-welcome-section">
+                <h4>{label.learnFromOthersHeader}</h4>
+                <p>{label.learnFromOthersText}</p>
+                <p><a href="https://trailhead.salesforce.com/trailblazer-community/groups/0F94S000000kJdmSAE?tab=discussion"
+                        target="_blank"><strong>{label.fscLink}</strong></a><br />
+                    {label.fscLinkText}</p>
+
+            </div>
+
+        </lightning-layout-item>
+
+    </lightning-layout>
+</template>

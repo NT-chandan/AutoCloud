@@ -1,0 +1,41 @@
+<template>
+    <div class={topLevelClass} onclick={clickComponent}>
+        <div class="slds-form-element__control">
+            <div class="slds-combobox_container">
+                <div class={listboxClasses} aria-haspopup="listbox" role="combobox">
+                    <div class="labelDiv">
+                        <template if:false={hasVariantLabelHidden}>
+                            <label class="slds-form-element__label">{label}</label>
+                        </template>
+                    </div>
+                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none"
+                        onclick={toggleExpand}>
+                        <!-- TODO: Replace with current value -->
+                        <input type="text" class="slds-input slds-combobox__input" id="combobox-id-10"
+                            aria-controls="listbox-id-3" aria-autocomplete="list" autocomplete="off" role="textbox"
+                            placeholder={placeholder} onkeyup={keyPressed} value={selectedValue} />
+                        <span
+                            class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                            <!-- lightning icon -->
+                            <lightning-icon icon-name="utility:down" size="x-small"></lightning-icon>
+                        </span>
+                    </div>
+                    <!-- Iterate through options list -->
+                    <template if:true={hasOptions}>
+                        <div id="listbox-id-3" class="slds-dropdown slds-dropdown_length-10" role="listbox">
+                            <ul class="slds-listbox slds-listbox_vertical">
+                                <template for:each={currentList} for:item="option">
+                                    <!-- Inner item component -->
+                                    <li key={option.value} role="presentation" class="slds-listbox__item">
+                                        <c-lightning-listbox-item item={option}
+                                            onselected={itemSelected}></c-lightning-listbox-item>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

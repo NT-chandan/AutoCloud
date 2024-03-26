@@ -1,0 +1,8 @@
+//execute once for establishing a new package -- only done once if not already listed in sfdx-project.json
+sfdx force:package:create --name "Health Cloud Transition Assistant (QA)" --path force-app --packagetype Unlocked --errornotificationusername <youruser>@zennify.com
+
+//execute for generating package new versions
+sfdx force:package:version:create --package "Health Cloud Transition Assistant (QA)" --installationkey zennifySFDC2021 --wait 30 -f config/project-scratch-def.json
+
+//optional execute to release for prod usage (version:create must include --codecoverage)
+sfdx force:package:version:promote --package "Health Cloud Transition Assistant (QA)@x.x.x-x"

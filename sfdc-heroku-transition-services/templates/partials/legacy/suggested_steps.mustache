@@ -1,0 +1,22 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="suggested-steps">
+  <h1>{{ label.sectionRecommendationTitle }}</h1>
+
+  {{#each assessmentResults.recommendations}}
+  <div class="step-item">
+    <!-- ICON -->
+    {{ !this.severityIcon }}
+    <h2>{{ this.text }}</h2>
+    <ul>
+      {{#each this.reasons}}
+      <li>{{ this.reason }}</li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/each}}
+</div>

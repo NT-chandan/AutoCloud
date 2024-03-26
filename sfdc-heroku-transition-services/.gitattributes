@@ -1,0 +1,10 @@
+# Configuring Git to handle line endings.
+# References:
+# - Line endings explanation: https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings.
+# - File official doc: https://git-scm.com/docs/gitattributes.
+# - See core.eol and core.autocrlf on: https://git-scm.com/docs/git-config#:~:text=core.-,eol,-Sets%20the%20line.
+
+# Declare files that will always have LF line endings.
+# Needed for the shell scripts if building and deplyoing locally to Heroku.
+# Note that VS Code defaults to LF for shell scripts which apply to new files but does not override git checkouts.
+scripts/**/* text eol=lf

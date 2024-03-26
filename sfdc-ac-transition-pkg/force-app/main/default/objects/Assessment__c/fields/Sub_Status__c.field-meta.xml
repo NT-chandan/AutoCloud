@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Sub-Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Initializing</fullName>
+                <default>false</default>
+                <label>Initializing</label>
+            </value>
+            <value>
+                <fullName>Scanning Dependencies</fullName>
+                <default>false</default>
+                <label>Scanning Dependencies</label>
+            </value>
+            <value>
+                <fullName>Scanning for Sharing Reasons</fullName>
+                <default>false</default>
+                <label>Scanning for Sharing Reasons</label>
+            </value>
+            <value>
+                <fullName>Scanning Apex Sharing</fullName>
+                <default>false</default>
+                <label>Scanning Apex Sharing</label>
+            </value>
+            <value>
+                <fullName>Generating Deployment Package</fullName>
+                <default>false</default>
+                <label>Generating Deployment Package</label>
+            </value>
+            <value>
+                <fullName>Deployment Package Ready</fullName>
+                <default>false</default>
+                <label>Deployment Package Ready</label>
+            </value>
+            <value>
+                <fullName>Finalizing</fullName>
+                <default>false</default>
+                <label>Finalizing</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Scanning</controllingFieldValue>
+            <valueName>Initializing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Scanning</controllingFieldValue>
+            <valueName>Scanning Dependencies</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Scanning</controllingFieldValue>
+            <valueName>Scanning Apex Sharing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Scanning</controllingFieldValue>
+            <valueName>Finalizing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Review</controllingFieldValue>
+            <valueName>Generating Deployment Package</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Review</controllingFieldValue>
+            <valueName>Deployment Package Ready</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

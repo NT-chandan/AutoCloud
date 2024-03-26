@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>fsclogo</members>
+        <name>ContentAsset</name>
+    </types>
+    <types>
+        <members>FSC_Transition</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomLabel</name>
+    </types>
+    <types>
+        <members>Assessment__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Assessment__c-es</members>
+        <members>Assessment__c-es_MX</members>
+        <name>CustomObjectTranslation</name>
+    </types>
+    <types>
+        <members>Assessments</members>
+        <members>AsyncRequest__c</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>FSC_Transition_UtilityBar</members>
+        <name>FlexiPage</name>
+    </types>
+    <types>
+        <members>Assessment__c-Assessment Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Transition_Assistant</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Translations</name>
+    </types>
+    <version>52.0</version>
+</Package>

@@ -1,0 +1,225 @@
+<template>
+    <div class="appContainer">
+        <div class={mainClass}>
+            <div class="introScreen">
+                <!-- check for update available -->
+                <template if:true={packageUpdateLink}>
+                    <template if:true={updateAvailable}>
+                        <div class="disclaimerContainer">
+                            <div class="slds-notify slds-notify_alert slds-alert_warning" role="alert">
+                                <span class="slds-assistive-text">{label.UIUpdateAvailable}</span>
+                                <lightning-icon class="alertIcon" icon-name="utility:warning"
+                                    size="xx-small"></lightning-icon>
+                                <h2><lightning-formatted-rich-text
+                                        value={label.UIUpdateAvailable}></lightning-formatted-rich-text>
+                                    &nbsp;
+                                    <span class="alertLink" onclick={installUpdate}>{label.UIUpdateAvailable2}</span>
+                                </h2>
+                            </div>
+                        </div>
+                    </template>
+                    <template if:true={unsupportedPackage}>
+                        <div class="disclaimerContainer">
+                            <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                                <span class="slds-assistive-text">{label.UIUnsupportedPackage}</span>
+                                <lightning-icon class="alertIcon" icon-name="utility:error"
+                                    size="xx-small"></lightning-icon>
+                                <h2><lightning-formatted-rich-text
+                                        value={label.UIUnsupportedPackage}></lightning-formatted-rich-text>
+                                    &nbsp;
+                                    <span class="alertLink" onclick={installUpdate}>{label.UIUnsupportedPackage2}</span>
+                                </h2>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+                <!-- check for cpu timeout error-->
+                <template if:true={orgCpuTimeoutWarning}>
+                    <div class="disclaimerContainer">
+                        <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                            <span class="slds-assistive-text">{label.RecCpuLimitExceptionWarningOrg}</span>
+                            <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small">
+                                <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use>
+                                </svg>
+                            </span>
+                            <h2><lightning-formatted-rich-text
+                                    value={label.RecCpuLimitExceptionWarningOrg}></lightning-formatted-rich-text></h2>
+                        </div>
+                    </div>
+                </template>
+                <!-- if connected App is not configure Properly -->
+                <template if:true={showAppError}>
+                    <div class="disclaimerContainer">
+                        <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                            <span class="slds-assistive-text">{label.UIConnectedAppError}</span>
+                            <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small">
+                                <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use>
+                                </svg>
+                            </span>
+                            <h2><lightning-formatted-rich-text
+                                    value={label.UIConnectedAppError}></lightning-formatted-rich-text></h2>
+                        </div>
+                    </div>
+                </template>
+                <!-- if sandbox enviromemt is selected -->
+                <template if:true={isSandbox}>
+                    <div class="disclaimerContainer">
+                        <div class="slds-notify slds-notify_alert" role="alert">
+                            <span class="slds-assistive-text">{label.UISandboxDisclaimer}</span>
+                            <span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small">
+                                <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#warning"></use>
+                                </svg>
+                            </span>
+                            <h2><lightning-formatted-rich-text
+                                    value={label.UISandboxDisclaimer}></lightning-formatted-rich-text></h2>
+                        </div>
+                    </div>
+                </template>
+                <!-- check query timeout of assesment custom object -->
+                <template if:true={assessmentCpuTimeoutWarning}>
+                    <div class="disclaimerContainer">
+                        <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                            <span class="slds-assistive-text">{label.RecCpuLimitExceptionWarning}</span>
+                            <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small">
+                                <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use>
+                                </svg>
+                            </span>
+                            <h2><lightning-formatted-rich-text
+                                    value={label.RecCpuLimitExceptionWarning}></lightning-formatted-rich-text></h2>
+                        </div>
+                    </div>
+                </template>
+                <!-- check if assesment custom object field is not missing -->
+                <template if:true={missingFileId}>
+                    <div class="disclaimerContainer">
+                        <div class="slds-notify slds-notify_alert slds-alert_warning" role="alert">
+                            <span class="slds-assistive-text">{label.UIImportMissingMetaWarning}</span>
+                            <span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small">
+                                <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#warning"></use>
+                                </svg>
+                            </span>
+                            <h2><lightning-formatted-rich-text
+                                    value={label.UIImportMissingMetaWarning}></lightning-formatted-rich-text>
+                                &nbsp;
+                                <span class="alertLink"
+                                    onclick={onMissingFileClick}>{label.UIImportMissingMetaWarning2}</span>
+                                &nbsp;
+                                <lightning-formatted-rich-text
+                                    value={label.UIImportMissingMetaWarning3}></lightning-formatted-rich-text>
+                            </h2>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- title section -->
+                <div class="titleSection">
+                    <div class="titleLeft">
+                        <h2 class="slds-card__header-title">{cardTitle}</h2>
+                    </div>
+                    <div class="titleRight">
+                        <template if:true={showNewButton}>
+                            <lightning-button label={label.UINewAssessmentButtonText} variant="brand"
+                                onclick={newAssessment}></lightning-button>
+                            <input accept=".json" id="fileInput" type="file" style="display:none;"
+                                onchange={handleImportFile} />
+                            <lightning-button class="actionSpacing" label={label.UINewAssessmentFromFileButtonText}
+                                onclick={navigateNewFromFile}></lightning-button>
+                            <template if:true={showDeleteButton}>
+                                <lightning-button label={label.UIDeleteSelectedRows} onclick={deleteSelectedRows}
+                                    class="slds-m-left_xx-small"></lightning-button>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Assesment Screen Description Section -->
+                <template if:true={showNewButton}>
+                    <br />
+                    <lightning-formatted-rich-text class="introDescription"
+                        value={label.AssessmentIntroDesc}></lightning-formatted-rich-text>
+                    <lightning-formatted-rich-text class="introDescription"
+                        value={label.AssessmentIntroDesc2}></lightning-formatted-rich-text>
+                </template>
+
+                <div class="container slds-is-relative">
+                    <template if:true={isLoading}>
+                        <lightning-spinner variant="brand" alternative-text="Loading"></lightning-spinner>
+                    </template>
+
+                    <!-- this will show the assesment table -->
+                    <template if:true={showAssessmentTable}>
+                        <article class="slds-card slds-card_boundary slds-is-relative slds-m-top_large">
+                            <c-assessment-datatable key-field="AssessmentId" data={assessmentList} columns={columns}
+                                onresumeassessment={resumeClicked} onrowselection={handleRowSelection}
+                                onrowaction={handleRowAction} onsave={updateDescription}
+                                draft-values={draftDescriptions}>
+                            </c-assessment-datatable>
+                        </article>
+                    </template>
+
+                    <template if:true={showNewButton}>
+                        <!-- this will show the assesment table -->
+                        <template if:false={showAssessmentTable}>
+                            <article class="slds-card slds-card_boundary slds-is-relative slds-m-top_large">
+                                <c-assessment-datatable key-field="AssessmentId" data={assessmentList}
+                                    onresumeassessment={resumeClicked} onrowselection={handleRowSelection}
+                                    onrowaction={handleRowAction} onsave={updateDescription}
+                                    draft-values={draftDescriptions}>
+                                </c-assessment-datatable>
+                                <div class="slds-text-align_center">Hmm, not much here yet
+                                    <br />
+                                    Looks like you haven't created an assessment yet. Check back after you create an
+                                    assessment.
+                                </div>
+                            </article>
+                        </template>
+                    </template>
+
+
+
+                    <!--NEw Assesment -->
+                    <!-- in case of new Assesment this section will appear -->
+                    <template if:true={showAssessment}>
+                        <!-- title of the assement screent -->
+                        <div class="slds-text-heading_large titleStyle">{label.AssessmentIntroTitle}</div>
+                        <!-- progress bar Sub vertical, Entry object and detail mapping -->
+                        <div class="progressContainer slds-m-bottom_medium">
+                            <c-assessment-progress-indicator current-step={currentStep} steps={steps} type="base"
+                                variant="base"></c-assessment-progress-indicator>
+                        </div>
+
+                        <!-- Select Payer or Provider -->
+                        <template if:true={isQuestionComponent}>
+                            <c-question-screen ongotoquestionnaire={goToAssessment} onstoploading={stopLoading}
+                                onclosequestionscreen={reloadPage} onassessmentcomplete={goToMapping}
+                                assessmentid={assessmentId} industryname="Financial_Services_Cloud"
+                                fsc-defs={fscDefs}></c-question-screen>
+                        </template>
+                        <!-- Mapping Section -->
+                        <template if:true={isStep3}>
+                            <c-mapping-screen onstoploading={stopLoading} onclosemappingscreen={reloadPage}
+                                assessmentid={assessmentId} onbackfrommapping={goBackToAssessment}
+                                fsc-schema={fscSchema} fsc-defs={fscDefs}
+                                update-severity={packageUpdateSeverity}></c-mapping-screen>
+                        </template>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- side class -->
+        <div class={sidebarClass}>
+            <div class={helpClass}>
+                <c-help-sidebar oncollapse={collapseHelp} onexpand={expandHelp}></c-help-sidebar>
+            </div>
+            <div class={configClass}>
+                <c-config-sidebar oncollapse={collapseConfig} onexpand={expandConfig}></c-config-sidebar>
+            </div>
+        </div>
+    </div>
+</template>

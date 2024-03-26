@@ -1,0 +1,63 @@
+.stillScanningContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5rem;
+    width: 100%;
+}
+.section {
+    border-top: solid 1px rgb(221,219,218);
+}
+.datatable {
+    padding: 1rem;
+    max-height: 800px;
+}
+.post-report-summary-header {
+    margin-top: 25px;
+    background: #000000;
+    color: #ffffff;
+    padding: 15px;
+    font-size: 2em;
+}
+
+.bulletRow {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.subsection-body {
+    font-size: 0.8125rem;
+    padding: 1rem;
+    padding-bottom: 0.5rem;
+}
+.iconSpacing {
+    margin-right: 0.5rem;
+}
+.failed-scan-msg {
+    display: inline-flex;
+    background-color: #eeeeee;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.failed-scan-symbol {
+    display: inline-block;
+    margin-right: 15px;
+    vertical-align: middle;
+}
+
+.failed-scan-text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon-warning {
+    --sds-c-icon-color-foreground-default: rgb(254, 147, 57);
+}
+
+.icon-info {
+    --sds-c-icon-color-foreground-default: rgb(252 192 3);
+}

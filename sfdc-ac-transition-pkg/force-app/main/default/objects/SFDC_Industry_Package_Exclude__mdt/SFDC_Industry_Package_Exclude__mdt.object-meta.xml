@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Exclude specific installable packages from Schema Org Order from being available for subscriber org</description>
+    <label>SFDC Industry Package Exclude</label>
+    <pluralLabel>SFDC Industry Package Excludes</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

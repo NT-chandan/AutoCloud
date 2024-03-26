@@ -1,0 +1,282 @@
+<template>
+    <div class="container">
+        <template if:true={isLoading}>
+            <lightning-spinner variant="brand" alternative-text="Loading"></lightning-spinner>
+        </template>
+        <!-- side menu section container -->
+        <div class="slds-panel slds-size_medium slds-panel_docked slds-panel_docked-left slds-is-open"
+            aria-hidden="false" style="margin-bottom: 5rem;">
+            <div class="slds-panel__header">
+                <h2 class="slds-panel__header-title slds-text-heading_medium slds-truncate" title="Panel Header">
+                    <b>Feature Groups</b>
+                </h2>
+                <div class="slds-panel__header-actions">
+                    <button class="slds-button slds-button_icon slds-button_icon-small slds-panel__close"
+                        title="Collapse Panel Header">
+                        <svg class="slds-button__icon" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Collapse Panel Header</span>
+                    </button>
+                </div>
+            </div>
+            <!-- side section of the question mapping screens -->
+            <div class="slds-panel__body" style="padding: 0;">
+                <template for:each={menuItems} for:item="menuItem" for:index="menuIndex">
+                    <template if:true={menuItem.selected}>
+                        <div class="menuRow rowSelected" key={menuItem.DeveloperName} onclick={catSelected}
+                            data-item={menuIndex}>
+                            <div class="labelSide slds-panel__header-title slds-text-heading_small slds-truncate">
+                                {menuItem.MasterLabel}
+                            </div>
+                            <div class="indicatorSide">
+                                <template if:true={menuItem.selected}>
+                                    <lightning-icon icon-name="action:update_status" size="xx-small"></lightning-icon>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                    <template if:false={menuItem.selected}>
+                        <div class="menuRow" key={menuItem.DeveloperName}>
+                            <div class="labelSide slds-panel__header-title slds-text-heading_small slds-truncate"
+                                data-item={menuIndex}>
+                                {menuItem.MasterLabel}
+                            </div>
+                            <div class="indicatorSide">
+                                <template if:true={menuItem.selected}>
+                                    <lightning-icon icon-name="action:update_status" size="xx-small"></lightning-icon>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                </template>
+            </div>
+        </div>
+        <!-- question Section Container -->
+        <div class="questionContainer slds-var-m-top_medium">
+            <template for:each={section.questions} for:item="question" for:index="questionIndex">
+                <template if:true={question.show}>
+                    <div key={question.questionText} class="questionContainer">
+                        <!-- question Header Section -->
+                        <div class="questionHeader slds-box"
+                            style="padding: var(--lwc-spacingXSmall,1rem); padding: 1rem; margin-bottom: 1rem;">
+                            <p class="slds-text-heading_medium"><lightning-formatted-rich-text
+                                    value={question.questionText}></lightning-formatted-rich-text></p>
+                        </div>
+
+                        <!--question header end-->
+
+                        <div class="questionBody">
+                            <!-- question summary text -->
+                            <p><lightning-formatted-rich-text
+                                    value={question.summaryText}></lightning-formatted-rich-text></p><br />
+                            <!--summary text end-->
+                            <template for:each={question.options} for:item="option" for:index="optionIndex">
+
+                                <!-- this section of code show the question checkbox -->
+                                <div key={option.Id} class="checkboxDiv">
+                                    <lightning-input variant="label-hidden" type="checkbox" checked={option.Show}
+                                        label={option.QuestionLabel} name="input1" onchange={optionSelected}
+                                        data-question={questionIndex} data-item={optionIndex}></lightning-input>
+                                    <span style="font-size: 1rem; margin-right: 0.3rem;">{option.QuestionLabel}</span>
+                                    <template if:true={option.HelpTextLabel}>
+                                        <lightning-helptext content={option.HelpTextLabel}></lightning-helptext>
+                                    </template>
+                                </div>
+                                <!-- check section end-->
+
+                                <!-- if question menu option checkbox is clicked -->
+                                <template if:true={option.Show}>
+                                    <lightning-accordion key={option.Id} class="accordionClass"
+                                        onsectiontoggle={handleToggleSection} active-section-name="A"
+                                        allow-multiple-sections-open>
+                                        <lightning-accordion-section name="A" label="Details">
+                                            <template if:true={option.VerboseHelpTextLabel}>
+                                                <lightning-formatted-rich-text
+                                                    value={option.VerboseHelpTextLabel}></lightning-formatted-rich-text>
+                                            </template>
+                                            <template if:false={option.VerboseHelpTextLabel}>
+                                                <lightning-formatted-rich-text
+                                                    value={option.HelpTextLabel}></lightning-formatted-rich-text>
+                                            </template>
+                                            <template for:each={option.MappedObjects} for:item="row"
+                                                for:index="rowIndex">
+                                                <p key={row.destination} style="margin-top: 2rem;">
+                                                    <lightning-formatted-rich-text
+                                                        value={row.assessmentDescription}></lightning-formatted-rich-text>
+                                                </p>
+                                                <div key={row.destination} class="rowContainer">
+                                                    <div class="objectRow">
+                                                        <!-- Object Selection -->
+                                                        <lightning-layout class="sectionLayout" multiple-rows="true">
+                                                            <!-- Header -->
+                                                            <lightning-layout-item size="5">
+                                                                <strong>{label.MappingObjectSource}</strong>
+                                                            </lightning-layout-item>
+                                                            <lightning-layout-item size="2">
+
+                                                            </lightning-layout-item>
+                                                            <lightning-layout-item size="5">
+                                                                <strong>{label.MappingObjectDest}</strong>
+                                                            </lightning-layout-item>
+
+                                                            <!-- Selection -->
+                                                            <lightning-layout-item class="rowItem" size="5">
+                                                                <c-lightning-listbox class="rowSelect"
+                                                                    data-qindex={questionIndex}
+                                                                    data-oindex={optionIndex} data-rindex={rowIndex}
+                                                                    data-level="object" data-type="source"
+                                                                    label={label.MappingObjectSource}
+                                                                    onselected={selectRow} options={orgSchema}
+                                                                    variant="label-hidden" default-value={row.source}
+                                                                    placeholder={label.ComboboxNoneValue}
+                                                                    load-children></c-lightning-listbox>
+                                                            </lightning-layout-item>
+                                                            <lightning-layout-item class="rowItem arrow" size="2">
+                                                                <lightning-icon class="mapIcon"
+                                                                    icon-name="utility:forward"></lightning-icon>
+                                                            </lightning-layout-item>
+                                                            <lightning-layout-item class="rowItem" size="5">
+                                                                <lightning-combobox class="rowSelect"
+                                                                    data-level="object" data-type="destination" disabled
+                                                                    name="fscSchema" label={label.MappingObjectDest}
+                                                                    onchange={selectRow}
+                                                                    placeholder={row.destinationLabel}
+                                                                    value={row.destination} variant="label-hidden">
+                                                                </lightning-combobox>
+                                                            </lightning-layout-item>
+                                                        </lightning-layout>
+                                                        <!-- END Object Selection-->
+                                                    </div>
+                                                </div>
+                                            </template>
+                                            <template if:false={option.followUp}>
+
+                                            </template>
+                                            <template if:true={option.followUp}>
+                                                <template for:each={option.followUp} for:item="followUp"
+                                                    for:index="followUpIndex">
+                                                    <div key={followUp.Id} class="checkboxDiv">
+                                                        <lightning-input variant="label-hidden" checked={followUp.Show}
+                                                            type="checkbox" label={followUp.QuestionLabel} name="input1"
+                                                            onchange={optionSelected} data-question={questionIndex}
+                                                            data-followup={followUpIndex}
+                                                            data-item={optionIndex}></lightning-input>
+                                                        <span
+                                                            style="font-size: 1rem; margin-right: 0.3rem;">{followUp.QuestionLabel}</span><lightning-helptext
+                                                            content={followUp.HelpTextLabel}></lightning-helptext>
+                                                    </div>
+                                                    <template if:true={followUp.Show}>
+                                                        <lightning-accordion key={followUp.Id} class="accordionClass"
+                                                            onsectiontoggle={handleToggleSection}
+                                                            active-section-name="A" allow-multiple-sections-open>
+                                                            <lightning-accordion-section name="A" label="Details">
+                                                                <template if:true={followUp.VerboseHelpTextLabel}>
+                                                                    <lightning-formatted-rich-text
+                                                                        value={followUp.VerboseHelpTextLabel}></lightning-formatted-rich-text>
+                                                                </template>
+                                                                <template if:false={followUp.VerboseHelpTextLabel}>
+                                                                    <lightning-formatted-rich-text
+                                                                        value={followUp.HelpTextLabel}></lightning-formatted-rich-text>
+                                                                </template>
+                                                                <template for:each={followUp.MappedObjects}
+                                                                    for:item="row" for:index="rowIndex">
+                                                                    <p key={row.destination} style="margin-top: 2rem;">
+                                                                        <lightning-formatted-rich-text
+                                                                            value={row.assessmentDescription}></lightning-formatted-rich-text>
+                                                                    </p>
+                                                                    <div key={row.destination} class="rowContainer">
+                                                                        <div class="objectRow">
+                                                                            <!-- Object Selection -->
+                                                                            <lightning-layout class="sectionLayout"
+                                                                                multiple-rows="true">
+                                                                                <!-- Header -->
+                                                                                <lightning-layout-item size="5">
+                                                                                    <strong>{label.MappingObjectSource}</strong>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="2">
+
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item size="5">
+                                                                                    <strong>{label.MappingObjectDest}</strong>
+                                                                                </lightning-layout-item>
+
+                                                                                <!-- Selection -->
+                                                                                <lightning-layout-item class="rowItem"
+                                                                                    size="5">
+                                                                                    <c-lightning-listbox
+                                                                                        class="rowSelect"
+                                                                                        data-qindex={questionIndex}
+                                                                                        data-oindex={optionIndex}
+                                                                                        data-rindex={rowIndex}
+                                                                                        data-followup={followUpIndex}
+                                                                                        data-level="object"
+                                                                                        data-type="source"
+                                                                                        label={label.MappingObjectSource}
+                                                                                        onselected={selectRow}
+                                                                                        options={orgSchema}
+                                                                                        variant="label-hidden"
+                                                                                        default-value={row.source}
+                                                                                        placeholder={label.ComboboxNoneValue}
+                                                                                        load-children></c-lightning-listbox>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item
+                                                                                    class="rowItem arrow" size="2">
+                                                                                    <lightning-icon class="mapIcon"
+                                                                                        icon-name="utility:forward"></lightning-icon>
+                                                                                </lightning-layout-item>
+                                                                                <lightning-layout-item class="rowItem"
+                                                                                    size="5">
+                                                                                    <lightning-combobox
+                                                                                        class="rowSelect"
+                                                                                        data-level="object"
+                                                                                        data-type="destination" disabled
+                                                                                        name="fscSchema"
+                                                                                        label={label.MappingObjectDest}
+                                                                                        onchange={selectRow}
+                                                                                        placeholder={row.destinationLabel}
+                                                                                        value={row.destination}
+                                                                                        variant="label-hidden">
+                                                                                    </lightning-combobox>
+                                                                                </lightning-layout-item>
+                                                                            </lightning-layout>
+                                                                            <!-- END Object Selection-->
+                                                                        </div>
+                                                                    </div>
+                                                                </template>
+                                                            </lightning-accordion-section>
+                                                        </lightning-accordion>
+                                                    </template>
+                                                </template>
+
+                                            </template>
+                                        </lightning-accordion-section>
+                                    </lightning-accordion>
+                                </template>
+                                <!--checkbox clicked end-->
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+            </template>
+        </div>
+
+    </div>
+    <div class="questionFooter">
+        <div class="alignLeft">
+            <lightning-button label={label.UICancelButtonText} class="slds-button"
+                onclick={cancelAssessment}></lightning-button>
+        </div>
+        <div class="alignRight">
+            <template if:true={showPrevious}>
+                <lightning-button label={label.UIBackButtonText} class="slds-button"
+                    onclick={previousClicked}></lightning-button>
+            </template>
+            <lightning-button label="Save as Draft" class="slds-button" onclick={saveScreen}></lightning-button>
+            <lightning-button label={label.UINextButtonText} class="slds-button" variant="brand"
+                onclick={nextClicked}></lightning-button>
+        </div>
+    </div>
+</template>

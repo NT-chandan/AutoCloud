@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<html>
+  __HTML_HEAD__
+
+  <body>
+
+    <div id="{{name}}" class="section-content">
+    <h1>{{label.reportSummarySectionTitle}}</h1>
+
+    {{#sections}}
+
+        {{#isWelcomeSection}}
+            __WELCOME__
+            <div class="page-break"></div>
+        {{/isWelcomeSection}}
+
+        {{#isReportSummarySection}}
+
+            <!-- Create the table of contents -->
+            <h2>Table of Contents</h2>
+            <ul class="table-of-contents">
+
+            {{#subsections}}
+
+                {{#isUnderstandingThisReportSection}}
+                    <a href="#understanding-this-report"><li>{{ subtitle }}</li></a>
+                {{/isUnderstandingThisReportSection}}
+
+                {{#isSystemOverviewSubsection}}
+                    <a href="#system-overview"><li>{{ subtitle }}</li></a>
+                {{/isSystemOverviewSubsection}}
+                
+                {{#isNotableUsedObjectsSubsection}}
+                    <a href="#notable-used-objects"><li>{{ subtitle }}</li></a>
+                {{/isNotableUsedObjectsSubsection}}
+                
+                {{#isTransitionApproachSubsection}}
+                    <a href="#transition-approach"><li>{{ subtitle }}</li></a>
+                {{/isTransitionApproachSubsection}}
+                
+                {{#isRecommendedSettingsSubsection}}
+                    <a href="#recommended-settings"><li>{{ subtitle }}</li></a>
+                {{/isRecommendedSettingsSubsection}}
+                
+                {{#isBasisOfAssessmentSubsection}}
+                    <a href="#basis-of-assessment"><li>{{ subtitle }}</li></a>
+                {{/isBasisOfAssessmentSubsection}}
+                
+                {{#isConsiderationsSubsection}}
+                    <a href="#considerations"><li>{{ subtitle }}</li></a>
+                {{/isConsiderationsSubsection}}
+                
+                {{#isMigrationAnalysisSubsection}}
+                    <a href="#migration-analysis"><li>{{ subtitle }}</li></a>
+                {{/isMigrationAnalysisSubsection}}
+        
+            {{/subsections}}
+            </ul>
+
+            <div class="page-break"></div>
+
+            <!-- Output each actual Report Summary subsection -->
+            {{#subsections}}
+
+                {{#isUnderstandingThisReportSection}}
+                    <a id="understanding-this-report">
+                    __UNDERSTANDING_THIS_REPORT__
+                {{/isUnderstandingThisReportSection}}
+
+                {{#isSystemOverviewSubsection}}
+                    <a id="system-overview">
+                    __SYSTEM_OVERVIEW__
+                {{/isSystemOverviewSubsection}}
+                
+                {{#isNotableUsedObjectsSubsection}}
+                    <a id="notable-used-objects">
+                    __NOTABLE_USED_OBJECTS__
+                {{/isNotableUsedObjectsSubsection}}
+                
+                {{#isTransitionApproachSubsection}}
+                    <a id="transition-approach">
+                    __RECOMMENDED_TRANSITION_APPROACH__
+                {{/isTransitionApproachSubsection}}
+                
+                {{#isRecommendedSettingsSubsection}}
+                    <a id="recommended-settings">
+                    __RECOMMENDED_SETTINGS__
+                {{/isRecommendedSettingsSubsection}}
+                
+                {{#isBasisOfAssessmentSubsection}}
+                    <a id="basis-of-assessment">
+                    __BASIS_OF_ASSESSMENT__
+                {{/isBasisOfAssessmentSubsection}}
+                
+                {{#isConsiderationsSubsection}}
+                    <a id="considerations">
+                    __MAJOR_CONSIDERATIONS__
+                {{/isConsiderationsSubsection}}
+                
+                {{#isMigrationAnalysisSubsection}}
+                    <a id="migration-analysis">
+                    __MIGRATION_ANALYSIS_SUMMARY__
+                {{/isMigrationAnalysisSubsection}}
+
+            <div class="page-break"></div>
+            
+            {{/subsections}}
+
+        {{/isReportSummarySection}}
+
+    {{/sections}}
+
+    </div>
+    
+  </body>
+</html>

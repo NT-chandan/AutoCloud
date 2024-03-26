@@ -1,0 +1,52 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="sharing-settings" class="report-results section-content">
+    <table>
+        <thead>
+        <tr class="heading">
+            <th>{{ label.assessmentTableTransitionFrom }}</th>
+            <th>{{ label.assessmentTableComponentType }}</th>
+            <th>{{ label.assessmentTableSharingInternal }}</th>
+            <th>{{ label.assessmentTableSharingExternal }}</th>
+            <th>{{ label.assessmentTableRecommendation }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#assessmentResults.sharingSettingResults}}
+
+            <tr class="item">
+                <td>{{#children.length}}__CHEVRON_RIGHT__{{/children.length}}{{ fromComponentName }}</td>
+                <td>{{ fromComponentType }}</td>
+                <td>{{ fromComponentInternalSharing }}</td>
+                <td>{{ fromComponentExternalSharing }}</td>
+                <td>{{ reasonText }}</td>
+            </tr>
+            {{#children}}
+                <tr class="item">
+                    <td class="indent-level-1">{{#children.length}}__CHEVRON_RIGHT__{{/children.length}}{{ fromComponentName }}</td>
+                    <td>{{ fromComponentType }}</td>
+                    <td>{{ fromComponentInternalSharing }}</td>
+                    <td>{{ fromComponentExternalSharing }}</td>
+                    <td>{{ reasonText }}</td>
+                </tr>
+                {{#children}}
+                    <tr class="item">
+                        <td class="indent-level-2">{{ fromComponentName }}</td>
+                        <td>{{ fromComponentType }}</td>
+                        <td>{{ fromComponentInternalSharing }}</td>
+                        <td>{{ fromComponentExternalSharing }}</td>
+                        <td>{{ reasonText }}</td>
+                    </tr>
+                {{/children}}
+            {{/children}}
+        {{/assessmentResults.sharingSettingResults}}
+        </tbody>
+    </table>
+    {{^assessmentResults.sharingSettingResults}}
+        <p>{{ label.assessmentResultsEmptyTable }}</p>
+    {{/assessmentResults.sharingSettingResults}}
+</div>

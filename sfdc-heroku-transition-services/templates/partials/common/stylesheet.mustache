@@ -1,0 +1,955 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<style type="text/css">
+
+    @media print, screen {
+        body,
+        div,
+        dl,
+        dt,
+        dd,
+        ul,
+        ol,
+        li,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        pre,
+        code,
+        blockquote {
+            margin: 0;
+            padding: 0;
+            border-width: 0;
+        }
+
+        td,
+        th {
+            border: none;
+            font-family: 'Salesforce Sans Light', sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 300;
+            line-height: 2.071;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        li {
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            margin-bottom: 3px;
+            margin-left: 18px;
+            margin-right: 0px;
+            text-align: left;
+        }
+
+        body {
+            font-size: 12px;
+            -epub-hyphens: auto;
+        }
+
+        html {
+            -webkit-print-color-adjust: exact;
+        }
+
+        p {
+            -epub-ruby-position: over;
+            color: #000000;
+            font-family: 'Salesforce Sans Light', sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 1.2;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.plain {
+            -epub-ruby-position: over;
+            color: #000000;
+            font-family: 'Salesforce Sans Light', sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 1.2;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.title {
+            -epub-ruby-position: over;
+            color: #242e64;
+            font-family: 'Salesforce Sans Light', sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 300;
+            line-height: 2.071;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.intro {
+            -epub-hyphens: none;
+            -epub-ruby-position: over;
+            color: #000000;
+            font-family: 'Salesforce Sans Book', sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 1.5;
+            margin-bottom: 5px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.heavy {
+            font-weight: bold;
+        }
+
+        p.body {
+            -epub-ruby-position: over;
+            color: #222222;
+            font-family: 'Salesforce Sans', sans-serif;
+            font-size: 8px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 1.5;
+            margin-bottom: 5px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.quote {
+            -epub-hyphens: none;
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'Salesforce Sans Book', sans-serif;
+            font-size: 20px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 1.2;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+            padding: 15px;
+        }
+
+        p.quote-small {
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'Salesforce Sans Light', sans-serif;
+            font-size: 15px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.quote-bold {
+            -epub-hyphens: none;
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'Salesforce Sans', sans-serif;
+            font-size: 9px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+            padding: 15px;
+        }
+
+        p.header.call-out {
+            -epub-hyphens: none;
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'ITC Avant Garde Gothic Pro (OTF) Demi', sans-serif;
+            font-size: 10px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 1.3;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.body.call-out {
+            -epub-hyphens: none;
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'Salesforce Sans Book', sans-serif;
+            font-size: 9px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 1.333;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.graph-bold {
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'Salesforce Sans', sans-serif;
+            font-size: 9px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            line-height: 0.878;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.device-description {
+            -epub-ruby-position: over;
+            color: #0b5cab;
+            font-family: 'Salesforce Sans', sans-serif;
+            font-size: 6px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: center;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.footnote {
+            -epub-ruby-position: over;
+            color: #59575c;
+            font-family: 'Salesforce Sans Book', sans-serif;
+            font-size: 7px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 1.429;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.disclaimer {
+            -epub-hyphens: none;
+            -epub-ruby-position: over;
+            color: #59575c;
+            font-family: 'Salesforce Sans Light', sans-serif;
+            font-size: 7px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.copyright.small {
+            -epub-hyphens: none;
+            -epub-ruby-position: over;
+            color: #59575c;
+            font-family: 'Salesforce Sans Light', sans-serif;
+            font-size: 6px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.boilerplate {
+            -epub-hyphens: none;
+            -epub-ruby-position: over;
+            color: #ffffff;
+            font-family: 'Salesforce Sans', sans-serif;
+            font-size: 11px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            line-height: 1.273;
+            margin-bottom: 12px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        p.override-1 {
+            font-size: 8px;
+            margin-bottom: 4px;
+        }
+
+        p.override-2 {
+            -epub-hyphens: none;
+            color: #ffffff;
+            font-family: 'Salesforce Sans', sans-serif;
+            font-size: 9px;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        p.override-3 {
+            color: #000000;
+            font-family: 'ITC Avant Garde Std Md', sans-serif;
+            font-size: 9px;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        p.override-4 {
+            color: #032d60;
+            font-family: 'ITC Avant Garde Std Md', sans-serif;
+            font-size: 9px;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        p.override-5 {
+            color: #ffffff;
+            font-family: 'ITC Avant Garde Std Md', sans-serif;
+            font-size: 8px;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        p.override-6 {
+            color: #ffffff;
+            font-family: 'ITC Avant Garde Std Md', sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        p.override-7 {
+            font-family: 'ITC Avant Garde Gothic Pro (OTF) Bold', sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            text-align: center;
+        }
+
+        p.override-8 {
+            color: #032d60;
+            font-family: 'Salesforce Sans', sans-serif;
+            font-size: 9px;
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        p.override-9 {
+            color: #032d60;
+            font-family: 'ITC Avant Garde Std Md', sans-serif;
+            font-size: 13px;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        p.override-10 {
+            color: #8a033e;
+            font-size: 14px;
+        }
+
+        p.override-11 {
+            color: #8a033e;
+            font-size: 34px;
+        }
+
+        p.override-12 {
+            font-family: 'Salesforce Sans Book', sans-serif;
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        article {
+            padding: 5px 10px;
+        }
+
+        h1.page-header {
+            -epub-ruby-position: over;
+            color: #242e64;
+            font-family: 'Salesforce Sans Light', sans-serif;
+            font-size: 11px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 300;
+            line-height: 2.636;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        h1 {
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'ITC Avant Garde Gothic Pro (OTF) Bold', sans-serif;
+            font-size: 23px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 180%;
+            margin-bottom: 0.25in;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        h1.subheadline {
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'ITC Avant Garde Gothic Pro (OTF) Demi', sans-serif;
+            font-size: 11px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 1.182;
+            margin-bottom: 5px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        h2 {
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'ITC Avant Garde Gothic Pro (OTF) Demi', sans-serif;
+            font-size: 16px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        h2.blue {
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'Salesforce Sans', sans-serif;
+            font-size: 10px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            line-height: 1.4;
+            margin-bottom: 2px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        h2.black {
+            -epub-ruby-position: over;
+            color: #222222;
+            font-family: 'Salesforce Sans', sans-serif;
+            font-size: 10px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            line-height: 1.4;
+            margin-bottom: 2px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        h3.blue {
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'Salesforce Sans', sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            line-height: 0.571;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        h4.blue {
+            -epub-ruby-position: over;
+            color: #032d60;
+            font-family: 'ITC Avant Garde Std Bk', sans-serif;
+            font-size: 9px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 600;
+            line-height: 1.444;
+            margin-bottom: 3px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        span.hyperlink {
+            color: #215e9e;
+            text-decoration: underline;
+        }
+
+        span.override-1 {
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        span.override-2 {
+            color: #032d60;
+            font-family: 'ITC Avant Garde Std Md', sans-serif;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        span.override-3 {
+            display: inline-block;
+            text-indent: 0;
+            white-space: pre-wrap;
+            width: 18px;
+        }
+
+        span.override-4 {
+            color: #000000;
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        span.override-5 {
+            color: #ffffff;
+        }
+
+        span.override-6 {
+            text-transform: uppercase;
+        }
+
+        span.override-7 {
+            color: #484b58;
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        span.override-8 {
+            color: #032d60;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        span.override-9 {
+            font-family: 'Salesforce Sans Book', sans-serif;
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        span.override-10 {
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        .section-content {
+            margin: 0 0.5in 0.25in;
+        }
+
+        .subsection-title {
+            font-weight: bold;
+            font-size: 1rem;
+            padding-top: 1.5rem;
+        }
+
+        .subsection-body {
+            font-size: 0.8125rem;
+            padding: 1rem;
+            padding-bottom: 0.5rem;
+        }
+
+        div#datasheet td,
+        div#datasheet th {
+            border: none;
+            vertical-align: top;
+        }
+
+        div#content {
+            padding: 15px 0;
+        }
+
+        #footer {
+            padding: 0 !important;
+        }
+
+        div.page-break {
+            page-break-after: always;
+        }
+
+        .report-results table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .report-results table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .report-results table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .report-results table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .report-results table tr.information {
+            padding-bottom: 40px;
+        }
+
+        .report-results table tr.heading th {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+
+        .report-results table tr.details td {
+            padding-bottom: 20px;
+        }
+
+        .report-results table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .report-results table tr.item.last td {
+            border-bottom: none;
+        }
+
+        .report-results p.intro {
+            margin: 10px 0;
+            font-size: 0.8rem;
+        }
+
+        .report-results a {
+            color: #006dcc;
+            text-decoration: none;
+        }
+
+        .report-summary-subsection-content {
+            margin: 15px 0;
+        }
+
+        .report-summary-subsection-content p {
+            margin: 10px 0;
+        }
+
+        .table-of-contents {
+            list-style: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .table-of-contents li {
+            margin-bottom: 5px;
+        }
+
+        .system-overview-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .recommended-settings-list {
+            list-style: none !important;
+        }
+
+        div.step-item {
+            margin: 10px 0 15px 20px;
+        }
+
+        article {
+            margin-bottom: 12px;
+        }
+
+        .icon-container {
+            display: inline-block;
+            border-radius: 0.25rem;
+            line-height: 1;
+            width: 2rem;
+            height: 2rem;
+            padding: 0.5rem;
+        }
+
+        .circle {
+            border-radius: 50% !important;
+        }
+
+        .solution {
+            background-color: #8fc972;
+        }
+
+        .approval {
+            background-color: #00c6b7;
+            width: 1rem;
+            height: 1rem;
+            margin: 0.5rem;
+        }
+
+        .approval svg.icon {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .warning {
+            /* background-color: #fff; */
+        }
+
+        .error {
+            background-color: #ef6e5d;
+            width: 1rem;
+            height: 1rem;
+            margin: 0.5rem;
+        }
+
+        .error svg.icon {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .bug {
+            background-color: #ef6e5d;
+        }
+
+        svg.icon {
+            fill: #fff !important;
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .close {
+            background-color: #ef6e5d;
+            width: 1rem;
+            height: 1rem;
+            margin: 0.5rem;
+        }
+
+        .close svg.icon {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        #page-counter {
+            font-family: 'Salesforce Sans Light', sans-serif;
+            font-weight: bold;
+            font-size: 1em;
+            counter-increment: page;
+            display: block;
+            width: 100%;
+            height: 1.2em;
+            content: counter(page);
+        }
+
+        .indent-level-1 {
+            white-space: nowrap;
+            padding-left: 27px !important;
+        }
+
+        .indent-level-2 {
+            white-space: nowrap;
+            padding-left: 54px !important;
+        }
+
+        .indent-level-3 {
+            white-space: nowrap;
+            padding-left: 81px !important;
+        }
+
+        .heading {
+            white-space: nowrap;
+        }
+        .heading th {
+            padding: 0 7px 0 7px;
+        }
+        .item td {
+            padding: 0 7px 0 7px;
+        }
+        .assessment-metadata table tbody tr th {
+            font-weight: bold;
+            text-align: left;
+        }
+        .assessment-metadata table tbody tr td {
+            text-align: left;
+        }
+        .assessment-metadata table {
+            margin: 0 auto;
+        }
+        .fsc-logo {
+            margin-top: 50px;
+        }
+
+        #header {
+            padding: 0 !important;
+        }
+        div.header {
+            padding-left: 0.35in;
+            padding-top: 0.15in;
+            padding-bottom: 1in;
+            width: 100%;
+            -webkit-print-color-adjust: exact;
+        }
+
+        div.header table {
+            width: 100%;
+        }
+
+        div.header td,
+        div.header th {
+            border: none;
+        }
+        p.header-title {
+            -epub-ruby-position: over;
+            color: #242e64;
+            font-family: 'Salesforce Sans Light', sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 300;
+            line-height: 2.071;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0px;
+        }
+
+        .impact-scale-item {
+            display: block;
+            background-color: #eeeeee;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .impact-scale-symbol {
+            display: inline-block;
+            margin-right: 15px;
+            vertical-align: middle;
+            height: 100%;
+        }
+
+        .impact-scale-text {
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+            color: #000000 !important;
+            width: 80%;
+        }
+
+        .notable-objects-table {
+            width: 90%;
+        }
+
+        .presales-item {
+            display: flex;
+            align-items: center;
+        }
+        .presales-icon {
+            padding: 10px;
+        }
+        .presales-text {
+            padding: 10px;
+        }
+
+    }
+        
+</style>

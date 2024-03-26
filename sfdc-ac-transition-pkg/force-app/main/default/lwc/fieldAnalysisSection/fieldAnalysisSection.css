@@ -1,0 +1,9 @@
+.subsection-body {
+    font-size: 0.8125rem;
+    padding: 1rem;
+    padding-bottom: 0.5rem;
+}
+.datatable {
+    padding: 1rem;
+    max-height: 800px;
+}

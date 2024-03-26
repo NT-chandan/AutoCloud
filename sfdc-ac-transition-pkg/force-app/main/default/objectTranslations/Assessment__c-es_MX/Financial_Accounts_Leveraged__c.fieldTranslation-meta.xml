@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label></label>
+    <name>Financial_Accounts_Leveraged__c</name>
+    <picklistValues>
+        <masterLabel>Checking Account</masterLabel>
+        <translation>Cuenta de cheques</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Investment Account</masterLabel>
+        <translation>Cuenta de inversiones</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Loans</masterLabel>
+        <translation>Cuenta del préstamo</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Not Listed</masterLabel>
+        <translation>Tipo no enumerado</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Savings Account</masterLabel>
+        <translation>Cuenta de ahorro</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Treasury Service</masterLabel>
+        <translation>Tesorería</translation>
+    </picklistValues>
+</CustomFieldTranslation>

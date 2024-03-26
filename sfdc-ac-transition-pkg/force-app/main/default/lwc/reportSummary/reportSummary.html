@@ -1,0 +1,309 @@
+<template>
+
+    <!-- Report Summary Sections -->
+    <div class="report-summary-accordion">
+        <lightning-accordion allow-multiple-sections-open="true">
+            <template for:each={reportSummarySection.subsections} for:item="subsection">
+                <!-- Prevent the Table of Contents section from rendering -->
+                <template if:false={subsection.isTOCSection}>
+                    <lightning-accordion-section name={subsection.name} key={subsection.id} label={subsection.subtitle} class="subsectionAccordion">
+
+                        <!-- Only render subsection content for specific subsections -->
+                        <template if:true={subsection.showContent}>
+                            <c-assessment-report-subsection 
+                                key={subsection.id}                        
+                                subsection={subsection}
+                            ></c-assessment-report-subsection>
+                        </template>
+
+                        <template if:true={subsection.isSystemOverviewSubsection}>
+                            <div class="sectionWrapper">
+                                <lightning-layout>
+                                    <lightning-layout-item size="6">
+                                        <table class="system-overview-list" style="width: 250px;">
+                                            <tr>
+                                                <td><strong>{label.overviewLicenses}</strong></td> <td>{reportsummarydata.licenseCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewLicensesAssigned}</strong></td> <td>{reportsummarydata.assignedLicenseCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewProfiles}</strong></td> <td>{reportsummarydata.profileCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewRoles}</strong></td> <td>{reportsummarydata.roleCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewFlows}</strong></td> <td>{reportsummarydata.flowCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewProcessBuilderFlows}</strong></td> <td>{reportsummarydata.processBuilderFlowCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewWorkflows}</strong></td> <td>{reportsummarydata.workflowCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewQueues}</strong></td> <td>{reportsummarydata.queueCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewEmailToCase}</strong></td> <td>{reportsummarydata.emailToCaseCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewCustomObjects}</strong></td> <td>{reportsummarydata.customObjectCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewApexTriggers}</strong></td> <td>{reportsummarydata.apexTriggerCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewApexClasses}</strong></td> <td>{reportsummarydata.apexClassCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewCustomApps}</strong></td> <td>{reportsummarydata.customAppCount}</td>
+                                            </tr>
+                                        </table>
+                                    </lightning-layout-item>
+                                
+                                    <lightning-layout-item size="6">
+                                        <table class="system-overview-list" style="width: 275px;">
+                                            <tr>
+                                                <td><strong>{label.overviewDataStorage}</strong></td> <td>{reportsummarydata.dataUsage}%</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.overviewFileStorage}</strong></td> <td>{reportsummarydata.fileStorageUsage}%</td>
+                                            </tr>
+                                        </table>
+        
+                                        <table class="system-overview-list" style="width: 500px;">
+                                            <tr>
+                                                <td><strong>{label.permissionsProfiles} </strong></td> <td>{reportsummarydata.profileCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.permissionsProfilesLegacy} </strong></td> <td>{reportsummarydata.profilesRelatedLegacyObjects}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.permissionsPermissionSets} </strong></td> <td>{reportsummarydata.permissionSetCount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.permissionsPermissionSetsLegacy} </strong></td> <td>{reportsummarydata.permissionSetsRelatedLegacyObjects}</td>
+                                            </tr>
+                                        </table>
+
+                                        <p><strong>{label.overviewEnabledFeatures}</strong></p>
+                                        <ol>
+                                            <template for:each={reportsummarydata.enabledChatFeatures} for:item="feature">
+                                                <li key={feature}>{feature}</li>
+                                            </template>
+                                        </ol>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                            </div>
+
+                        </template>
+
+                        <template if:true={subsection.isNotableUsedObjectsSubsection}>
+                            <template if:true={hasCoreNotableObjectsData}>
+                                <h2 style="font-weight: bold; font-size: 16px;">{label.coreNotableUsedObjects}</h2>
+                                <div class="slds-scrollable_y datatable" key={subsection.id}>
+                                    <lightning-datatable
+                                        key-field="uuid"
+                                        hide-checkbox-column="true"
+                                        columns={notableObjectsColumns}
+                                        data={reportsummarydata.coreNotableObjects}
+                                        wrap-text-max-lines="10">
+                                    </lightning-datatable>
+                                </div>
+                                <template if:false={hasCoreNotableObjectsData}>
+                                    <p class="slds-text-body_regular slds-p-around_small sectionWrapper" style="font-weight: bold;">
+                                        {label.assessmentResultsEmptyTable}</p>
+                                </template>
+                            </template>
+                            <template if:true={hasAdditionalNotableObjectsData}>
+                                <h2 style="font-weight: bold; font-size: 16px;">{label.additionalNotableUsedObjects}</h2>
+                                <div class="slds-scrollable_y datatable" key={subsection.id}>
+                                    <lightning-datatable
+                                        key-field="uuid"
+                                        hide-checkbox-column="true"
+                                        columns={notableObjectsColumns}
+                                        data={reportsummarydata.additionalNotableObjects}
+                                        wrap-text-max-lines="10">
+                                    </lightning-datatable>
+                                </div>
+                                <template if:false={hasAdditionalNotableObjectsData}>
+                                    <p class="slds-text-body_regular slds-p-around_small sectionWrapper" style="font-weight: bold;">
+                                        {label.assessmentResultsEmptyTable}</p>
+                                </template>
+                            </template>
+                        </template>
+    
+                        <template if:true={subsection.isTransitionApproachSubsection}>
+                            <c-overall-recommendation-section
+                                                    key={subsection.id}
+                                                    overall-recommendation={reportsummarydata.overallRecommendation}></c-overall-recommendation-section>
+                        </template>
+
+                        <template if:true={subsection.isRecommendedSettingsSubsection}>
+                            <ol class="recommended-settings-list">
+                                <li>
+                                    <template if:true={reportsummarydata.recommendedSettings.hasContactToMultipleAccounts}>
+                                        <lightning-icon icon-name="action:approval" size="xx-small" alternative-text="true" title="true" class="recommended-settings-icon"></lightning-icon>
+                                    </template>
+                                    <template if:false={reportsummarydata.recommendedSettings.hasContactToMultipleAccounts}>
+                                        <lightning-icon icon-name="action:close" size="xx-small" alternative-text="false" title="false" class="recommended-settings-icon"></lightning-icon>
+                                    </template>
+                                    {label.recommendedSettingsMultipleAccounts}
+                                </li>
+                                <li>
+                                    <template if:true={reportsummarydata.recommendedSettings.hasLex}>
+                                        <lightning-icon icon-name="action:approval" size="xx-small" alternative-text="true" title="true" class="recommended-settings-icon"></lightning-icon>
+                                    </template>
+                                    <template if:false={reportsummarydata.recommendedSettings.hasLex}>
+                                        <lightning-icon icon-name="action:close" size="xx-small" alternative-text="false" title="false" class="recommended-settings-icon"></lightning-icon>
+                                    </template>
+                                    {label.recommendedSettingsLEX}
+                                </li>
+                                <li>
+                                    <template if:true={reportsummarydata.recommendedSettings.hasPersonAccounts}>
+                                        <lightning-icon icon-name="action:approval" size="xx-small" alternative-text="true" title="true" class="recommended-settings-icon"></lightning-icon>
+                                    </template>
+                                    <template if:false={reportsummarydata.recommendedSettings.hasPersonAccounts}>
+                                        <lightning-icon icon-name="action:close" size="xx-small" alternative-text="false" title="false" class="recommended-settings-icon"></lightning-icon>
+                                        {label.recommendedSettingsPersonAccounts} | <lightning-formatted-rich-text value={label.personAccountDisclaimer}></lightning-formatted-rich-text>
+                                    </template>
+                                </li>
+                                <li>
+                                    <template if:true={reportsummarydata.recommendedSettings.hasPackage}>
+                                        <lightning-icon icon-name="action:approval" size="xx-small" alternative-text="true" title="true" class="recommended-settings-icon"></lightning-icon>
+                                    </template>
+                                    <template if:false={reportsummarydata.recommendedSettings.hasPackage}>
+                                        <lightning-icon icon-name="action:close" size="xx-small" alternative-text="false" title="false" class="recommended-settings-icon"></lightning-icon>
+                                    </template>
+                                    {label.recommendedSettingsFeaturePackage}
+                                </li>
+                                <li>
+                                    <template if:true={reportsummarydata.recommendedSettings.isLicensesAvailable}>
+                                        <lightning-icon icon-name="action:approval" size="xx-small" alternative-text="true" title="true" class="recommended-settings-icon"></lightning-icon>
+                                    </template>
+                                    <template if:false={reportsummarydata.recommendedSettings.isLicensesAvailable}>
+                                        <lightning-icon icon-name="action:close" size="xx-small" alternative-text="false" title="false" class="recommended-settings-icon"></lightning-icon>
+                                    </template>
+                                    {label.recommendedSettingsFeaturePackageLicenses}
+                                </li>
+                            </ol>
+                        </template>
+    
+                        <template if:true={subsection.isBasisOfAssessmentSubsection}>
+                            <div class="slds-notify slds-notify_alert" role="alert" style="margin-left: 1rem; margin-right: 1rem; margin-top: 1rem;">
+                                <span class="slds-assistive-text">warning</span>
+                                        <lightning-icon
+                                        icon-name="utility:warning"
+                                        size="x-small"
+                                        alternative-text="Indicates approval">
+                                        </lightning-icon>
+                                <h2>{label.generalObjectMappingDisclaimer}</h2>
+                            </div>
+
+                            <div class="sectionWrapper">
+
+                                <lightning-layout>
+                                    <lightning-layout-item size="6">
+                                        <table class="system-overview-list" style="width: 300px;">
+                                            <tr>
+                                                <td><strong>{label.mappedObjects}: </strong></td>
+                                                <td>
+                                                    <lightning-formatted-number value={reportsummarydata.mappedObjectsCount}></lightning-formatted-number>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.totalObjects}: </strong></td>
+                                                <td>
+                                                    <lightning-formatted-number value={reportsummarydata.totalObjectsCount}></lightning-formatted-number>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.mappedFields}: </strong></td>
+                                                <td>
+                                                    <lightning-formatted-number value={reportsummarydata.mappedFieldsCount}></lightning-formatted-number>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.totalFields}: </strong></td>
+                                                <td>
+                                                    <lightning-formatted-number value={reportsummarydata.totalFieldsCount}></lightning-formatted-number>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.averageFields}: </strong></td>
+                                                <td>
+                                                    <lightning-formatted-number value={reportsummarydata.avgFieldsPerMappedObject}></lightning-formatted-number>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{label.relatedNotMapped}: </strong></td>
+                                                <td>
+                                                    <lightning-formatted-number value={reportsummarydata.mappedObjectsCount}></lightning-formatted-number>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="6">
+                                        <div>
+                                            <strong>Selected Lines of Business: </strong>
+                                            <ol>
+                                                <template for:each={reportsummarydata.linesOfBusiness} for:item="lob">
+                                                    <li key={lob}>{lob}</li>
+                                                </template>
+                                            </ol>
+                                        </div>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+
+                            </div>
+
+                            <template if:true={hasBasisOfAssessmentData}>
+                                <div class="slds-scrollable_y datatable">
+                                    <lightning-datatable
+                                        key-field="reasonText"
+                                        hide-checkbox-column="true"
+                                        column-widths-mode="auto"
+                                        columns={basisOfAssessmentColumns}
+                                        data={reportsummarydata.basisOfAssessment}>
+                                    </lightning-datatable>
+                                </div>
+                            </template>
+                            <template if:false={hasBasisOfAssessmentData}>
+                                <p class="slds-text-body_regular slds-p-around_small" style="font-weight: bold;">
+                                    {label.assessmentResultsEmptyTable}</p>
+                            </template>
+                        </template>
+
+                        <template if:true={subsection.isConsiderationsSubsection}>
+                            <c-overall-recommendation-section
+                                                    key={subsection.id}
+                                                    recommendations={reportsummarydata.recommendations}></c-overall-recommendation-section>
+                        </template>
+    
+                        <template if:true={subsection.isMigrationAnalysisSubsection}>
+                            <template if:true={hasMigrationAnalysisData}>
+                                <div class="slds-scrollable_y datatable" key={subsection.id}>
+                                    <lightning-datatable
+                                        key-field="uuid"
+                                        hide-checkbox-column="true"
+                                        columns={migrationAnalysisColumns}
+                                        data={reportsummarydata.migrationAnalysis}>
+                                    </lightning-datatable>
+                                </div>
+                            </template>
+                            <template if:false={hasMigrationAnalysisData}>
+                                <p class="slds-text-body_regular slds-p-around_small" style="font-weight: bold;">
+                                    {label.assessmentResultsEmptyTable}</p>
+                            </template>
+                        </template>
+
+                    </lightning-accordion-section>
+                </template>
+            </template> 
+        </lightning-accordion>
+    </div>
+
+</template>

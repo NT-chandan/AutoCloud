@@ -1,0 +1,21 @@
+{
+  "orgName": "Automotive Cloud Transition Assistant",
+  "edition": "Developer",
+  "features": [
+    "PlatformCache",
+    "ProviderFreePlatformCache"
+  ],
+  "settings": {
+    "languageSettings": {
+      "enableTranslationWorkbench":  true,
+      "enableEndUserLanguages": true
+    },
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "securitySettings": {},
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    }
+  }
+}

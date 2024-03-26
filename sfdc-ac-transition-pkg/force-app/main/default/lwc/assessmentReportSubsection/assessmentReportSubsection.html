@@ -1,0 +1,15 @@
+<template>
+    <template if:true={subsection.title}>
+        <h3 class="subsection-title">
+            {subsection.title}
+        </h3>
+    </template>
+    <div class="subsection-body">
+        <template if:true={subsection.isImage}>
+            <img style={subsection.style} src={subsection.assetAbsoluteUrl} />
+        </template>
+        <template if:false={subsection.isImage}>
+            <lightning-formatted-rich-text value={subsection.body}></lightning-formatted-rich-text>
+        </template>
+    </div>
+</template>

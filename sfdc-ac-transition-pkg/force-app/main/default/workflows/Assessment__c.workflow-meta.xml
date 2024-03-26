@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Send_Report_Review_Email</fullName>
+        <description>Send Report Review Email</description>
+        <protected>true</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Transition_Assistant_Emails/Transition_Assistant_Report_Ready</template>
+    </alerts>
+</Workflow>

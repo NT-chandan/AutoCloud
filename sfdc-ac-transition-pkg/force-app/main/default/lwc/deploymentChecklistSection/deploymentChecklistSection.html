@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title={sectionLabel} class="slds-var-m-top_medium slds-card_boundary child-card" icon-name="utility:replace">
+        <div class="slds-var-m-left_medium slds-var-m-right_medium">
+            <lightning-formatted-rich-text value={sectionDescription}></lightning-formatted-rich-text>
+            <div class="slds-scrollable_y slds-var-m-top_medium" style="max-height: 500px;">
+                <lightning-datatable 
+                    key-field="componentId" 
+                    columns={columns} 
+                    data={sectionData}
+                    onsort={updateColumnSorting} 
+                    selected-rows={selectedChecklistRows} 
+                    onrowselection={rowSelected}
+                    hide-checkbox-column={hideSelection} 
+                    sorted-by={sortedBy} 
+                    sorted-direction={sortDirection}>
+                </lightning-datatable>
+            </div>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Upgrade_Recommendation__c</fullName>
+    <externalId>false</externalId>
+    <label>Upgrade Recommendation</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Clean Upgrade Existing Org</fullName>
+                <default>false</default>
+                <label>Clean Upgrade Existing Org</label>
+            </value>
+            <value>
+                <fullName>Complex Upgrade Existing Org</fullName>
+                <default>false</default>
+                <label>Complex Upgrade Existing Org</label>
+            </value>
+            <value>
+                <fullName>Complex Upgrade New Org</fullName>
+                <default>false</default>
+                <label>Complex Upgrade New Org</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

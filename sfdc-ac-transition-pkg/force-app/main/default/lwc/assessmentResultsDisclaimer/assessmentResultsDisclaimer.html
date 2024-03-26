@@ -1,0 +1,30 @@
+<template>
+    <div class="sectionContainer" style="margin-top: 1rem; margin-bottom: 1rem;">
+        <!-- <div class="container">
+            <template if:true={showUserPrompt}>
+                <p class="checkboxDiv">
+                    <lightning-input type="checkbox"
+                                     label={label.AssessmentReportWelcomeCheckboxText}
+                                     checked={dontShowSelected} onchange={setDontShow} variant="label-hidden">
+                    </lightning-input>
+                    &nbsp;{label.AssessmentReportWelcomeCheckboxText}
+                </p>
+                <lightning-button variant="brand" label={label.UIContinueButtonText} title={label.UIContinueButtonText}
+                                  onclick={continueClicked} class="actionButton"></lightning-button>
+            </template>
+        </div> -->
+        <c-report-summary-welcome-section></c-report-summary-welcome-section>
+        <div class="container">
+            <template if:true={showUserPrompt}>
+                <p class="checkboxDiv">
+                    <lightning-input type="checkbox" label={label.AssessmentReportWelcomeCheckboxText}
+                        checked={dontShowSelected} onchange={setDontShow} variant="label-hidden">
+                    </lightning-input>
+                    &nbsp;{label.AssessmentReportWelcomeCheckboxText}
+                </p>
+                <lightning-button variant="brand" label={label.UIContinueButtonText} title={label.UIContinueButtonText}
+                    onclick={continueClicked} class="actionButton"></lightning-button>
+            </template>
+        </div>
+    </div>
+</template>

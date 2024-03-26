@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Async_Requests_Are_Enabled__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Enables/Disables the continuation of processing of Async Request Queueable Apex</description>
+    <externalId>false</externalId>
+    <inlineHelpText>WARNING: When unchecked, this managed package will not properly function.</inlineHelpText>
+    <label>Async Requests Are Enabled</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

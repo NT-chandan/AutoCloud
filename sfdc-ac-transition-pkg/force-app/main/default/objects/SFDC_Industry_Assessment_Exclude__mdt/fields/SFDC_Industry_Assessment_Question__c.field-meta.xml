@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SFDC_Industry_Assessment_Question__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>SFDC Industry Assessment Question</label>
+    <referenceTo>SFDC_Industry_Assessment_Question__mdt</referenceTo>
+    <relationshipLabel>SFDC Industry Assessment Excludes</relationshipLabel>
+    <relationshipName>SFDC_Industry_Assessment_Excludes</relationshipName>
+    <required>true</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

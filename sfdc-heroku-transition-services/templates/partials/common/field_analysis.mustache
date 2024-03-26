@@ -1,0 +1,98 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="field-analysis" class="report-results">
+    <p>{{{ label.fieldAnalysisIntro }}}</p>
+
+    {{#label.fieldAnalysisHeadingEncryption}}
+            <br>
+            <h3>{{ label.fieldAnalysisHeadingEncryption }}</h3>
+            <br>
+            <p>{{{ label.fieldAnalysisEncryption }}}</p>
+        
+        {{#assessmentResults.encryptionResults}}
+        <div class="section-content">
+            <table>
+                <thead>
+                <tr class="heading">
+                    <th>{{ label.assessmentTableComponentName }}</th>
+                    <th>{{ label.assessmentTableEncryptionType }}</th>
+                    <th>{{ label.assessmentTableFieldCount }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr class="item">
+                        <td style="display: flex; align-items: center">
+                            {{#children.length}}__CHEVRON_RIGHT__{{/children.length}}<a href="{{ fromComponentUrl }}">{{ fromComponentName }}</a>
+                        </td>
+                        <td>{{ fromComponentType }}</td>
+                        <td>{{ fromComponentSize }}</td>
+                    </tr>
+                    {{#children}}
+                        <tr class="item">
+                            <td class="indent-level-1">
+                                <a href="{{ fromComponentUrl }}">{{ fromComponentName }}</a>
+                            </td>
+                            <td>{{ fromComponentType }}</td>
+                        </tr>
+                    {{/children}}
+                </tbody>
+            </table>
+        </div>
+        {{/assessmentResults.encryptionResults}}
+        {{^assessmentResults.encryptionResults}}
+            <br>
+            <p class="heavy">{{ label.assessmentResultsEmptyTable }}</p>
+        {{/assessmentResults.encryptionResults}}
+
+    {{/label.fieldAnalysisHeadingEncryption}}
+
+    <br>
+    <h3>{{ label.fieldAnalysisHeadingFieldAudit }}</h3>
+    <br>
+    <p>{{{ label.fieldAnalysisTracking }}}</p>
+    
+    {{#assessmentResults.fieldAuditResults}}
+        {{#label.fieldAnalysisTrackingDisclaimer}}
+            <br>
+            <p>{{{ label.fieldAnalysisTrackingDisclaimer }}}</p>
+        {{/label.fieldAnalysisTrackingDisclaimer}}
+
+        <div class="section-content">
+            <table>
+                <thead>
+                <tr class="heading">
+                    <th>{{ label.assessmentTableComponentName }}</th>
+                    <th>{{ label.assessmentTableFieldCount }}</th>
+                    <th>{{ label.assessmentTableArchiveAfterMonths }}</th>
+                    <th>{{ label.assessmentTableArchiveRetentionYears }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr class="item">
+                        <td style="display: flex; align-items: center">
+                            {{#children.length}}__CHEVRON_RIGHT__{{/children.length}}<a href="{{ fromComponentUrl }}">{{ fromComponentName }}</a>
+                        </td>
+                        <td>{{ fromComponentSize }}</td>
+                        <td>{{ fromComponentArchiveAfterMonths }}</td>
+                        <td>{{ fromComponentArchiveRetentionYears }}</td>
+                    </tr>
+                    {{#children}}
+                        <tr class="item">
+                            <td class="indent-level-1">
+                                <a href="{{ fromComponentUrl }}">{{ fromComponentName }}</a>
+                            </td>
+                        </tr>
+                    {{/children}}
+                </tbody>
+            </table>
+        </div>
+    {{/assessmentResults.fieldAuditResults}}
+    {{^assessmentResults.fieldAuditResults}}
+        <br>
+        <p class="heavy">{{ label.assessmentResultsEmptyTable }}</p>
+    {{/assessmentResults.fieldAuditResults}}
+</div>

@@ -1,0 +1,113 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="understanding-this-report" class="report-results section-content">
+    <h3>{{subtitle}}</h3>
+
+    <div class="report-summary-subsection-content">
+        <h4>{{label.whatsInHeader}}</h4>
+        <p>{{{label.whatsInText}}}</p>
+        <p>{{{label.whatsInTextNote}}}</p>
+    </div>
+
+    <div class="report-summary-subsection-content">
+        <h4>{{label.howToUseHeader}}</h4>
+        <p>{{{label.howToUseText}}}</p>
+    </div>
+
+    <div class="report-summary-subsection-content">
+        <h4>{{label.impactScaleHeader}}</h4>
+        <div class="impact-scale-item">
+            <div class="impact-scale-symbol">
+               __ACTION_APPROVAL__
+            </div>
+            <div class="impact-scale-text">{{label.impactScaleApproval}}</div>
+        </div>
+        <div class="impact-scale-item">
+            <div class="impact-scale-symbol">
+                __UTILITY_INFO__
+            </div>
+            <div class="impact-scale-text">{{label.impactScaleReview}}</div>
+        </div>
+        <div class="impact-scale-item">
+            <div class="impact-scale-symbol hcwarning">
+                __UTILITY_WARNING__
+            </div>
+            <div class="impact-scale-text">{{label.impactScaleWarning}}</div>
+        </div>
+        <div class="impact-scale-item">
+            <div class="impact-scale-symbol">
+                __UTILITY_ERROR__
+            </div>
+            <div class="impact-scale-text">{{label.impactScaleSolution}}</div>
+        </div>
+        <div class="impact-scale-item">
+            <div class="impact-scale-symbol">
+                __ACTION_CLOSE__
+            </div>
+            <div class="impact-scale-text">{{label.impactScaleClose}}</div>
+        </div>
+    </div>
+
+    <div class="report-summary-subsection-content">
+        <h4>{{label.bestPracticeHeader}}</h4>
+        <p>{{{label.bestPracticeText}}}</p>
+    </div>
+
+    <div class="report-summary-subsection-content">
+        <h4>{{label.accelerateHeader}}</h4>
+        <p>{{label.accelerateText}}</p>        
+        <p><a href="https://help.salesforce.com/s/articleView?id=sf.auto_learn_about.htm&type=5" target="_blank"><strong>{{label.workInFSCLink}}</strong></a><br/>
+        {{label.workInFSCLinkText}}</p>
+
+        <p><a href="https://help.salesforce.com/s/articleView?id=sf.auto_set_up_configure_auto.htm&type=5" target="_blank"><strong>{{label.fscSuperbadgeLink}}</strong></a><br/>
+        {{label.fscSuperbadgeLinkText}}</p>
+    </div>
+
+    <div class="report-summary-subsection-content">
+        <h4>{{label.learnFromOthersHeader}}</h4>
+        <p>{{label.learnFromOthersText}}</p>
+        <p><a href="https://trailhead.salesforce.com/trailblazer-community/groups/0F94S000000kJdmSAE" target="_blank"><strong>{{label.fscLink}}</strong></a><br/>
+            {{label.fscLinkText}}</p>
+
+        <p><a href="https://trailhead.salesforce.com/trailblazer-community/groups/0F94S000000kJdmSAE" target="_blank"><strong>{{label.userGroupLink}}</strong></a><br/>
+            {{label.userGroupLinkText}}</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="assessment-metadata">
+        <table>
+            <tbody>
+            <tr>
+                <th>{{ label.headerLabelDate }}</th>
+                <td>{{ assessment.CreatedDate }}</td>
+            </tr>
+            <tr>
+                <th>{{ label.headerLabelCreatedBy }}</th>
+                <td>{{ assessment.CreatedBy }}</td>
+            </tr>
+            <tr>
+                <th>{{ label.headerLabelOrgId }}</th>
+                <td>{{ assessmentResults.orgId }}</td>
+            </tr>
+            <tr>
+                <th>{{ label.headerLabelOrgType }}</th>
+                <td>{{ assessmentResults.orgEdition }}</td>
+            </tr>
+            <tr>
+                <th>{{ label.headerLabelVersion }}</th>
+                <td>{{ assessmentResults.assessmentVersion }}</td>
+            </tr>
+            <tr>
+                <th>{{ label.headerLabelUpgradeType }}</th>
+                <td>{{ assessmentResults.upgradeType }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

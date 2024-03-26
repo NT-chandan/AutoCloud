@@ -1,0 +1,39 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="assessment-results" class="report-results section-content">
+    <table>
+        <thead>
+        <tr class="heading">
+            <th>{{ label.assessmentTableFeature }}</th>
+            <th>{{ label.assessmentTablePriority }}</th>
+            <th>{{ label.assessmentTableRecommendation }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#assessmentResults.assessmentResults}}
+            <tr class="item">
+                <td>
+                    <a href="{{ replaceWithFscUrl }}">{{ replaceWithFsc }}</a>
+                </td>
+                <td>{{ recommendText }}</td>
+                <td>{{ featureText }}</td>
+                
+            </tr>
+        {{/assessmentResults.assessmentResults}}
+        </tbody>
+    </table>
+    {{#assessmentResults.preSalesItems}}
+        <div class="presales-item">
+            <div class="presales-icon">
+                {{{iconOverride}}}
+            </div>
+            <div class="presales-text">
+                {{reasonText}}
+            </div>
+        </div>
+    {{/assessmentResults.preSalesItems}}
+</div>

@@ -1,0 +1,608 @@
+<template>
+    <!-- Modal Container -->
+    <template if:true={showModal}>
+        <c-mapping-new-meta-modal org-objects={orgSchema} modal-info={modalInfo} onsaveandclosemodal={saveAndCloseModal}
+            onclosemodal={closeModal} pre-selected-value={modalDefault}></c-mapping-new-meta-modal>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- END Modal Container-->
+
+    <p class="slds-text-body_regular" style="margin-bottom: 1.5rem; margin-top: 2.5rem;"><lightning-formatted-rich-text
+            value={label.MappingIntro}></lightning-formatted-rich-text></p>
+    <lightning-button label="Auto-Map Selected Objects" class="slds-button" onclick={autoMapClicked}></lightning-button>
+    <div class="mappingTable">
+        <template if:true={isLoading}>
+            <lightning-spinner variant="brand" alternative-text="Loading"></lightning-spinner>
+        </template>
+
+        <template if:false={recommendListEmpty}>
+            <div class="recommendedSection">
+                <div class="slds-text-heading_medium sectionHeader">
+                    {label.MappingRecommendedTitle}
+                </div>
+                <div class="summary slds-text-body_regular sectionDesc">
+                    <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light"
+                        role="status">
+                        <div class="slds-media__body">
+                            <p><lightning-formatted-rich-text
+                                    value={label.MappingRecommendedDesc}></lightning-formatted-rich-text>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Iterate through rows -->
+                <lightning-accordion class="mappingAccordion" allow-multiple-sections-open
+                    active-section-name={activeSections}>
+
+                    <template for:each={newMappings} for:item="section" for:index="sectionIndex">
+                        <lightning-accordion-section class="detailsHeader" key={section.sectionName}
+                            name={section.sectionName} label={section.sectionName}>
+                            <template for:each={section.mappingData} for:item="objectMapping" for:index="objectIndex">
+                                <div key={objectMapping.destination} class="mappingRow">
+                                    <!-- Object Selection -->
+                                    <lightning-layout class="sectionLayout" multiple-rows="true">
+                                        <lightning-layout-item size="5">
+                                            <strong>{label.MappingObjectSource}</strong>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size="2">
+
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size="5">
+                                            <strong>{label.MappingObjectDest}</strong>
+                                        </lightning-layout-item>
+
+                                        <lightning-layout-item class="rowItem" size="5">
+                                            <c-lightning-listbox class="rowSelect" data-index={sectionIndex}
+                                                data-objectindex={objectIndex} label={label.MappingObjectSource}
+                                                default-value={objectMapping.source} options={orgSchema}
+                                                onselected={orgSchemaSelect} placeholder={label.ComboboxNoneValue}
+                                                variant="label-hidden">
+                                            </c-lightning-listbox>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item class="rowItem" size="2">
+                                            <lightning-icon class="mapIcon"
+                                                icon-name="utility:forward"></lightning-icon>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item class="rowItem" size="5">
+                                            <lightning-combobox class="rowSelect" data-index={sectionIndex}
+                                                data-objectindex={objectIndex} disabled name="fscSchema"
+                                                label={label.MappingObjectDest}
+                                                placeholder={objectMapping.destinationDef.sourceObjectLabel}
+                                                value={objectMapping.destination} variant="label-hidden">
+                                            </lightning-combobox>
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+
+                                    <template if:true={objectMapping.showDetails}>
+                                        <lightning-formatted-rich-text class="objectDesc"
+                                            value={objectMapping.destinationDef.sourceObjectDesc}></lightning-formatted-rich-text>
+                                        <!-- Supplementary Section (Record Types, Fields, etc.) -->
+                                        <lightning-accordion class="detailsAccordion"
+                                            onsectiontoggle={sectionHeaderClicked} data-index={sectionIndex}
+                                            data-objectindex={objectIndex} allow-multiple-sections-open
+                                            active-section-name="">
+                                            <lightning-accordion-section class="detailsHeader" name={objectname}
+                                                label={label.MappingDetailsTitle} data-index={sectionIndex}
+                                                data-objectindex={objectIndex}>
+                                                <template if:true={objectMapping.sourceDef}>
+                                                    <div class="recordTypeSection slds-box slds-box_small detailBox">
+                                                        <strong
+                                                            style="text-decoration: underline;">{label.MappingRTTitle}</strong>
+                                                        <p>{objectMapping.rtCountString}</p>
+                                                        <lightning-layout class="sectionLayout" multiple-rows="true">
+                                                            <template if:true={objectMapping.recordTypeMapping.length}>
+                                                                <lightning-layout-item size="5">
+                                                                    <strong>{label.MappingRTSource}</strong>
+                                                                </lightning-layout-item>
+                                                                <lightning-layout-item size="2">
+
+                                                                </lightning-layout-item>
+                                                                <lightning-layout-item size="5">
+                                                                    <strong>{label.MappingRTDest}</strong>
+                                                                </lightning-layout-item>
+                                                            </template>
+
+                                                            <!-- Iterate through Record Types on *source* object -->
+                                                            <template for:each={objectMapping.recordTypeMapping}
+                                                                for:item="recordTypeInfo" for:index="recordTypeIndex">
+                                                                <div key={recordTypeInfo.source}
+                                                                    class="mappingDetailRow">
+                                                                    <template if:true={recordTypeInfo.userGenerated}>
+                                                                        <div
+                                                                            class="negativeContainer clickableContainer">
+                                                                            <lightning-layout-item
+                                                                                class="rowItem removeIcon" size="1">
+                                                                                <lightning-icon
+                                                                                    class="slds-current-color"
+                                                                                    data-index={sectionIndex}
+                                                                                    data-rtindex={recordTypeIndex}
+                                                                                    data-objectindex={objectIndex}
+                                                                                    icon-name="utility:dash"
+                                                                                    size="small"
+                                                                                    onclick={removeRecordTypeRow}></lightning-icon>
+                                                                            </lightning-layout-item>
+                                                                        </div>
+                                                                    </template>
+                                                                    <lightning-layout-item class="rowItem" size="5">
+                                                                        <c-lightning-listbox class="rowSelect"
+                                                                            data-index={sectionIndex}
+                                                                            data-objectindex={objectIndex}
+                                                                            data-recordtyypeindex={recordTypeIndex}
+                                                                            label={label.MappingRTSource}
+                                                                            options={objectMapping.sourceDef.recordTypes}
+                                                                            default-value={recordTypeInfo.source}
+                                                                            onselected={orgRecordTypeSelect}
+                                                                            placeholder={label.ComboboxNoneValue}
+                                                                            variant="label-hidden">
+                                                                        </c-lightning-listbox>
+                                                                    </lightning-layout-item>
+
+                                                                    <template if:true={recordTypeInfo.userGenerated}>
+                                                                        <lightning-layout-item class="rowItem" size="1">
+                                                                            <lightning-icon class="mapIcon"
+                                                                                icon-name="utility:forward"></lightning-icon>
+                                                                        </lightning-layout-item>
+                                                                    </template>
+                                                                    <template if:false={recordTypeInfo.userGenerated}>
+                                                                        <lightning-layout-item class="rowItem" size="2">
+                                                                            <lightning-icon class="mapIcon"
+                                                                                icon-name="utility:forward"></lightning-icon>
+                                                                        </lightning-layout-item>
+                                                                    </template>
+
+                                                                    <lightning-layout-item class="rowItem" size="5">
+                                                                        <c-lightning-listbox class="rowSelect"
+                                                                            data-index={sectionIndex}
+                                                                            data-objectindex={objectIndex}
+                                                                            data-recordtyypeindex={recordTypeIndex}
+                                                                            label={label.MappingRTDest}
+                                                                            options={objectMapping.destinationDef.recordTypes}
+                                                                            default-value={recordTypeInfo.destination}
+                                                                            placeholder={label.ComboboxNoneValue}
+                                                                            onselected={fscRecordTypeSelect}
+                                                                            variant="label-hidden">
+                                                                        </c-lightning-listbox>
+                                                                    </lightning-layout-item>
+                                                                </div>
+                                                            </template>
+                                                            <div class="mappingOperators">
+                                                                <div class="positiveContainer clickableContainer"
+                                                                    onclick={addRecordTypeRow} data-index={sectionIndex}
+                                                                    data-objectindex={objectIndex}>
+                                                                    <lightning-icon class="slds-current-color"
+                                                                        data-index={sectionIndex}
+                                                                        data-objectindex={objectIndex}
+                                                                        icon-name="utility:add"
+                                                                        size="x-small"></lightning-icon>
+                                                                    <strong style="margin-left: .5rem; color: black;"
+                                                                        data-index={sectionIndex}
+                                                                        data-objectindex={objectIndex}>{label.MappingRTAdd}</strong>
+                                                                </div>
+                                                            </div>
+                                                        </lightning-layout>
+                                                    </div>
+                                                    <div class="fieldsSection slds-box slds-box_small detailBox">
+                                                        <strong
+                                                            style="text-decoration: underline;">{label.MappingFieldTitle}</strong>
+                                                        <p>{objectMapping.fieldCountString}</p>
+                                                        <lightning-layout class="sectionLayout" multiple-rows="true">
+                                                            <!-- Iterate through required (and perhaps, a few extra) fields on *destination* object -->
+                                                            <template if:true={objectMapping.fieldMapping.length}>
+                                                                <lightning-layout-item size="5">
+                                                                    <strong>{label.MappingFieldSource}</strong>
+                                                                </lightning-layout-item>
+                                                                <lightning-layout-item size="2">
+
+                                                                </lightning-layout-item>
+                                                                <lightning-layout-item size="5">
+                                                                    <strong>{label.MappingFieldDest}</strong>
+                                                                </lightning-layout-item>
+                                                            </template>
+
+                                                            <!-- Iterate through Record Types on *source* object -->
+                                                            <template for:each={objectMapping.fieldMapping}
+                                                                for:item="fieldMappingInfo" for:index="fieldIndex">
+                                                                <div key={fieldMappingInfo.source}
+                                                                    class="mappingDetailRow">
+                                                                    <template if:true={fieldMappingInfo.userGenerated}>
+                                                                        <div class="negativeContainer">
+                                                                            <lightning-layout-item
+                                                                                class="rowItem removeIcon" size="1">
+                                                                                <lightning-icon
+                                                                                    class="slds-current-color"
+                                                                                    data-index={sectionIndex}
+                                                                                    data-fieldindex={fieldIndex}
+                                                                                    data-objectindex={objectIndex}
+                                                                                    icon-name="utility:dash"
+                                                                                    size="small"
+                                                                                    onclick={removeRow}></lightning-icon>
+                                                                            </lightning-layout-item>
+                                                                        </div>
+                                                                    </template>
+                                                                    <lightning-layout-item class="rowItem" size="5">
+                                                                        <c-lightning-listbox class="rowSelect"
+                                                                            data-index={sectionIndex}
+                                                                            data-objectindex={objectIndex}
+                                                                            data-fieldindex={fieldIndex}
+                                                                            label={label.MappingFieldSource}
+                                                                            options={objectMapping.sourceDef.fields}
+                                                                            default-value={fieldMappingInfo.source}
+                                                                            onselected={orgFieldSelect}
+                                                                            placeholder={label.ComboboxNoneValue}
+                                                                            variant="label-hidden">
+                                                                        </c-lightning-listbox>
+                                                                    </lightning-layout-item>
+                                                                    <template if:true={fieldMappingInfo.userGenerated}>
+                                                                        <lightning-layout-item class="rowItem" size="1">
+                                                                            <lightning-icon class="mapIcon"
+                                                                                icon-name="utility:forward"></lightning-icon>
+                                                                        </lightning-layout-item>
+                                                                    </template>
+                                                                    <template if:false={fieldMappingInfo.userGenerated}>
+                                                                        <lightning-layout-item class="rowItem" size="2">
+                                                                            <lightning-icon class="mapIcon"
+                                                                                icon-name="utility:forward"></lightning-icon>
+                                                                        </lightning-layout-item>
+                                                                    </template>
+
+                                                                    <lightning-layout-item class="rowItem" size="5">
+                                                                        <c-lightning-listbox class="rowSelect"
+                                                                            data-index={sectionIndex}
+                                                                            data-objectindex={objectIndex}
+                                                                            data-fieldindex={fieldIndex}
+                                                                            label={label.MappingFieldDest}
+                                                                            options={objectMapping.destinationDef.fieldMapping}
+                                                                            onselected={fscFieldSelect}
+                                                                            default-value={fieldMappingInfo.destination}
+                                                                            placeholder={label.ComboboxNoneValue}
+                                                                            variant="label-hidden">
+                                                                        </c-lightning-listbox>
+                                                                    </lightning-layout-item>
+                                                                </div>
+                                                            </template>
+                                                            <!-- Add/Remove mapping icons -->
+                                                            <div class="mappingOperators">
+                                                                <div class="positiveContainer clickableContainer"
+                                                                    onclick={addRow} data-index={sectionIndex}
+                                                                    data-objectindex={objectIndex}>
+                                                                    <lightning-icon class="slds-current-color"
+                                                                        data-index={sectionIndex}
+                                                                        data-objectindex={objectIndex}
+                                                                        icon-name="utility:add"
+                                                                        size="x-small"></lightning-icon>
+                                                                    <strong style="margin-left: .5rem; color: black;"
+                                                                        data-index={sectionIndex}
+                                                                        data-objectindex={objectIndex}>{label.MappingFieldAdd}</strong>
+                                                                </div>
+                                                            </div>
+                                                        </lightning-layout>
+                                                    </div>
+                                                    <template
+                                                        if:true={objectMapping.sourceDef.childRelationshipList.length}>
+                                                        <div class="childrenSection slds-box slds-box_small detailBox">
+                                                            <strong
+                                                                style="text-decoration: underline;">{label.MappingChildTitle}</strong>
+                                                            <p>{objectMapping.childCountString}</p>
+                                                            <lightning-dual-listbox name="languages"
+                                                                data-index={sectionIndex} data-objectindex={objectIndex}
+                                                                label={label.MappingChildTitle}
+                                                                source-label={label.UIDualboxAvailable}
+                                                                selected-label={label.UIDualboxSelected}
+                                                                options={objectMapping.sourceDef.childRelationshipList}
+                                                                onchange={childSelected} variant="label-hidden"
+                                                                value={objectMapping.childRelationshipDualboxValues}>
+                                                            </lightning-dual-listbox>
+                                                        </div>
+                                                    </template>
+                                                </template>
+
+                                            </lightning-accordion-section>
+                                        </lightning-accordion>
+                                    </template>
+                                </div>
+                            </template>
+                        </lightning-accordion-section>
+                    </template>
+                </lightning-accordion>
+            </div>
+        </template>
+        <div class="otherSection">
+            <div class="slds-text-heading_medium sectionHeader">
+                {label.MappingAdditionalTitle}
+            </div>
+            <div class="summary slds-text-body_regular sectionDesc">
+                <div class="summary slds-text-body_regular sectionDesc">
+                    <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light"
+                        role="status">
+                        <div class="slds-media__body">
+                            <p><lightning-formatted-rich-text
+                                    value={label.MappingAdditionalDesc}></lightning-formatted-rich-text>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <template for:each={additionalMappings} for:item="objectMapping" for:index="mapIndex">
+                <div key={objectMapping.source} class="mappingRow">
+                    <!-- Object Selection -->
+                    <lightning-layout class="sectionLayout" multiple-rows="true">
+                        <lightning-layout-item size="5">
+                            <strong>{label.MappingObjectSource}</strong>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="2">
+
+                        </lightning-layout-item>
+                        <lightning-layout-item size="5">
+                            <strong>{label.MappingObjectDest}</strong>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item class="rowItem" size="5">
+                            <c-lightning-listbox class="rowSelect" data-objectindex={mapIndex} data-type="additional"
+                                label={label.MappingObjectSource} options={orgSchema} onselected={orgSchemaSelect}
+                                placeholder={label.ComboboxNoneValue} default-value={objectMapping.source}
+                                variant="label-hidden">
+                            </c-lightning-listbox>
+                        </lightning-layout-item>
+                        <lightning-layout-item class="rowItem" size="2">
+                            <lightning-icon class="mapIcon" icon-name="utility:forward"></lightning-icon>
+                        </lightning-layout-item>
+                        <lightning-layout-item class="rowItem" size="5">
+                            <c-lightning-listbox class="rowSelect" data-objectindex={mapIndex} data-type="additional"
+                                label={label.MappingObjectDest} options={fscSchema} onselected={fscSchemaSelect}
+                                default-value={objectMapping.destination} placeholder={label.ComboboxNoneValue}
+                                variant="label-hidden">
+                            </c-lightning-listbox>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                    <template if:true={objectMapping.showDetails}>
+                        <template if:true={objectMapping.destinationDef}>
+                            <lightning-formatted-rich-text class="objectDesc"
+                                value={objectMapping.destinationDef.sourceObjectDesc}></lightning-formatted-rich-text>
+                        </template>
+                        <!-- Supplementary Section (Record Types, Fields, etc.) -->
+                        <lightning-accordion class="detailsAccordion" onsectiontoggle={sectionHeaderClicked}
+                            data-objectindex={mapIndex} data-type="additional" allow-multiple-sections-open
+                            active-section-name="">
+                            <lightning-accordion-section class="detailsHeader" name={objectname}
+                                label={label.MappingDetailsTitle} data-objectindex={mapIndex} data-type="additional">
+                                <template if:true={objectMapping.sourceDef}>
+                                    <div class="detailsWrapper">
+                                        <div class="recordTypeSection slds-box slds-box_small detailBox">
+                                            <strong style="text-decoration: underline;">{label.MappingRTTitle}</strong>
+                                            <p>{objectMapping.rtCountString}</p>
+                                            <lightning-layout class="sectionLayout" multiple-rows="true">
+                                                <template if:true={objectMapping.recordTypeMapping.length}>
+                                                    <lightning-layout-item size="5">
+                                                        <strong>{label.MappingRTSource}</strong>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="2">
+
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="5">
+                                                        <strong>{label.MappingRTDest}</strong>
+                                                    </lightning-layout-item>
+                                                </template>
+
+                                                <!-- Iterate through Record Types on *source* object -->
+                                                <template for:each={objectMapping.recordTypeMapping}
+                                                    for:item="recordTypeInfo" for:index="recordTypeIndex">
+                                                    <div key={recordTypeInfo.source} class="mappingDetailRow">
+                                                        <template if:true={recordTypeInfo.userGenerated}>
+                                                            <div class="negativeContainer">
+                                                                <lightning-layout-item class="rowItem removeIcon"
+                                                                    size="1">
+                                                                    <lightning-icon class="slds-current-color"
+                                                                        data-rtindex={recordTypeIndex}
+                                                                        data-objectindex={mapIndex}
+                                                                        data-type="additional" icon-name="utility:dash"
+                                                                        size="small"
+                                                                        onclick={removeRecordTypeRow}></lightning-icon>
+                                                                </lightning-layout-item>
+                                                            </div>
+                                                        </template>
+                                                        <lightning-layout-item class="rowItem" size="5">
+                                                            <c-lightning-listbox class="rowSelect"
+                                                                data-objectindex={mapIndex}
+                                                                data-recordtyypeindex={recordTypeIndex}
+                                                                data-type="additional" label={label.MappingRTSource}
+                                                                options={objectMapping.sourceDef.recordTypes}
+                                                                default-value={recordTypeInfo.source}
+                                                                onselected={orgRecordTypeSelect}
+                                                                placeholder={label.ComboboxNoneValue}
+                                                                variant="label-hidden">
+                                                            </c-lightning-listbox>
+                                                        </lightning-layout-item>
+
+                                                        <template if:true={recordTypeInfo.userGenerated}>
+                                                            <lightning-layout-item class="rowItem" size="1">
+                                                                <lightning-icon class="mapIcon"
+                                                                    icon-name="utility:forward"></lightning-icon>
+                                                            </lightning-layout-item>
+                                                        </template>
+                                                        <template if:false={recordTypeInfo.userGenerated}>
+                                                            <lightning-layout-item class="rowItem" size="2">
+                                                                <lightning-icon class="mapIcon"
+                                                                    icon-name="utility:forward"></lightning-icon>
+                                                            </lightning-layout-item>
+                                                        </template>
+
+                                                        <lightning-layout-item class="rowItem" size="5">
+                                                            <c-lightning-listbox class="rowSelect"
+                                                                data-objectindex={mapIndex}
+                                                                data-recordtyypeindex={recordTypeIndex}
+                                                                data-type="additional" label={label.MappingRTDest}
+                                                                options={objectMapping.destinationDef.recordTypes}
+                                                                onselected={fscRecordTypeSelect}
+                                                                default-value={recordTypeInfo.destination}
+                                                                placeholder={label.ComboboxNoneValue}
+                                                                variant="label-hidden">
+                                                            </c-lightning-listbox>
+                                                        </lightning-layout-item>
+                                                    </div>
+                                                </template>
+                                                <div class="mappingOperators">
+                                                    <div class="positiveContainer clickableContainer"
+                                                        onclick={addRecordTypeRow} data-objectindex={mapIndex}
+                                                        data-type="additional">
+                                                        <lightning-icon class="slds-current-color"
+                                                            data-objectindex={mapIndex} data-type="additional"
+                                                            icon-name="utility:add" size="x-small"></lightning-icon>
+                                                        <strong style="margin-left: .5rem; color: black;"
+                                                            data-objectindex={mapIndex}
+                                                            data-type="additional">{label.MappingRTAdd}</strong>
+                                                    </div>
+                                                </div>
+                                            </lightning-layout>
+                                        </div>
+                                        <div class="fieldsSection slds-box slds-box_small detailBox">
+                                            <strong
+                                                style="text-decoration: underline;">{label.MappingFieldTitle}</strong>
+                                            <p>{objectMapping.fieldCountString}</p>
+                                            <lightning-layout class="sectionLayout" multiple-rows="true">
+                                                <!-- Iterate through required (and perhaps, a few extra) fields on *destination* object -->
+                                                <!-- Allow for the ability to add/remove any *additional* fields to map-->
+                                                <template if:true={objectMapping.fieldMapping.length}>
+                                                    <lightning-layout-item size="5">
+                                                        <strong>{label.MappingFieldSource}</strong>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="2">
+
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="5">
+                                                        <strong>{label.MappingFieldDest}</strong>
+                                                    </lightning-layout-item>
+                                                </template>
+
+                                                <!-- Iterate through Record Types on *source* object -->
+                                                <template for:each={objectMapping.fieldMapping}
+                                                    for:item="fieldMappingInfo" for:index="fieldIndex">
+                                                    <div key={fieldMappingInfo.source} class="mappingDetailRow">
+                                                        <template if:true={fieldMappingInfo.userGenerated}>
+                                                            <div class="negativeContainer">
+                                                                <lightning-layout-item class="rowItem removeIcon"
+                                                                    size="1">
+                                                                    <lightning-icon class="slds-current-color"
+                                                                        data-fieldindex={fieldIndex}
+                                                                        data-objectindex={mapIndex}
+                                                                        data-type="additional" icon-name="utility:dash"
+                                                                        size="small"
+                                                                        onclick={removeRow}></lightning-icon>
+                                                                </lightning-layout-item>
+                                                            </div>
+                                                        </template>
+                                                        <lightning-layout-item class="rowItem" size="5">
+                                                            <c-lightning-listbox class="rowSelect"
+                                                                data-objectindex={mapIndex} data-fieldindex={fieldIndex}
+                                                                data-type="additional" label={label.MappingFieldSource}
+                                                                options={objectMapping.sourceDef.fields}
+                                                                default-value={fieldMappingInfo.source}
+                                                                onselected={orgFieldSelect}
+                                                                placeholder={label.ComboboxNoneValue}
+                                                                variant="label-hidden">
+                                                            </c-lightning-listbox>
+                                                        </lightning-layout-item>
+                                                        <template if:true={fieldMappingInfo.userGenerated}>
+                                                            <lightning-layout-item class="rowItem" size="1">
+                                                                <lightning-icon class="mapIcon"
+                                                                    icon-name="utility:forward"></lightning-icon>
+                                                            </lightning-layout-item>
+                                                        </template>
+                                                        <template if:false={fieldMappingInfo.userGenerated}>
+                                                            <lightning-layout-item class="rowItem" size="2">
+                                                                <lightning-icon class="mapIcon"
+                                                                    icon-name="utility:forward"></lightning-icon>
+                                                            </lightning-layout-item>
+                                                        </template>
+
+                                                        <lightning-layout-item class="rowItem" size="5">
+                                                            <c-lightning-listbox class="rowSelect"
+                                                                data-objectindex={mapIndex} data-fieldindex={fieldIndex}
+                                                                data-type="additional" name="fscSchema"
+                                                                label={label.MappingFieldDest}
+                                                                options={objectMapping.destinationDef.fieldMapping}
+                                                                onselected={fscFieldSelect}
+                                                                placeholder={label.ComboboxNoneValue}
+                                                                default-value={fieldMappingInfo.destination}
+                                                                variant="label-hidden">
+                                                            </c-lightning-listbox>
+                                                        </lightning-layout-item>
+                                                    </div>
+                                                </template>
+
+                                                <!-- Add/Remove mapping icons -->
+                                                <div class="mappingOperators">
+                                                    <div class="positiveContainer clickableContainer" onclick={addRow}
+                                                        data-objectindex={mapIndex} data-type="additional">
+                                                        <lightning-icon class="slds-current-color"
+                                                            data-objectindex={mapIndex} data-type="additional"
+                                                            icon-name="utility:add" size="x-small"></lightning-icon>
+                                                        <strong style="margin-left: .5rem; color: black;"
+                                                            data-objectindex={mapIndex}
+                                                            data-type="additional">{label.MappingFieldAdd}</strong>
+                                                    </div>
+                                                </div>
+                                            </lightning-layout>
+                                        </div>
+                                        <template if:true={objectMapping.sourceDef.childRelationshipList.length}>
+                                            <div class="childrenSection slds-box slds-box_small detailBox">
+                                                <strong
+                                                    style="text-decoration: underline;">{label.MappingChildTitle}</strong>
+                                                <p>{objectMapping.childCountString}</p>
+                                                <lightning-dual-listbox name="languages" data-objectindex={mapIndex}
+                                                    data-type="additional" label={label.MappingChildTitle}
+                                                    source-label={label.UIDualboxAvailable}
+                                                    selected-label={label.UIDualboxSelected}
+                                                    options={objectMapping.sourceDef.childRelationshipList}
+                                                    onchange={childSelected} variant="label-hidden"
+                                                    value={objectMapping.childRelationshipDualboxValues}>
+                                                </lightning-dual-listbox>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </lightning-accordion-section>
+                        </lightning-accordion>
+                    </template>
+                    <template if:true={objectMapping.userGenerated}>
+                        <div class="negativeContainer clickableContainer" style="margin-right: auto; margin-top: .5rem;"
+                            data-objectindex={mapIndex} data-type="additional" onclick={removeObjectRow}>
+                            <lightning-layout-item class="rowItem removeIcon" size="1"
+                                style="margin-left: 0; width: 100%;" data-objectindex={mapIndex} data-type="additional">
+                                <lightning-icon class="slds-current-color" data-objectindex={mapIndex}
+                                    data-type="additional" icon-name="utility:dash" size="x-small"></lightning-icon>
+                                <strong style="margin-left: .5rem; color: black;" data-objectindex={mapIndex}
+                                    data-type="additional">{label.MappingObjectRemove}</strong>
+                            </lightning-layout-item>
+                        </div>
+                    </template>
+                </div>
+            </template>
+            <div class="mappingOperators">
+                <div class="positiveContainer clickableContainer" data-type="additional" onclick={addObjectRow}>
+                    <lightning-icon class="slds-current-color" data-type="additional" icon-name="utility:add"
+                        size="x-small"></lightning-icon>
+                    <strong style="margin-left: .5rem; color: black;"
+                        data-type="additional">{label.MappingObjectAdd}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer" style="display: flex; margin-top: 2rem; font-size: 14px;">
+        <div class="leftAlign">
+            <slot name="cancel" slot="footer"><lightning-button label={label.UICancelButtonText} class="slds-button"
+                    onclick={cancelAssessment}></lightning-button></slot>
+        </div>
+        <div class="rightAlign">
+            <slot name="back" slot="footer"><lightning-button label={label.UIBackButtonText} class="slds-button"
+                    onclick={goBack}></lightning-button></slot>
+            <slot name="save" slot="footer"><lightning-button label={label.UISaveButtonText} class="slds-button"
+                    onclick={saveProgress}></lightning-button></slot>
+            <slot name="finish" slot="footer"><lightning-button disabled={disableFinish}
+                    label={label.UIFinishButtonText} class="slds-button" variant="brand"
+                    onclick={completeMapping}></lightning-button></slot>
+        </div>
+    </div>
+
+</template>

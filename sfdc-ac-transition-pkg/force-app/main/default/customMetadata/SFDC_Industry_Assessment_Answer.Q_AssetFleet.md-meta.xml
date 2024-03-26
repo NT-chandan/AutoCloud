@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Q - AssetFleet</label>
+    <protected>true</protected>
+    <values>
+        <field>Bottom_Help_Text_Label__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Follow_Up_To__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Help_Text_Label__c</field>
+        <value xsi:type="xsd:string">AnswerAssetFleetHelp</value>
+    </values>
+    <values>
+        <field>Index__c</field>
+        <value xsi:type="xsd:double">1.0</value>
+    </values>
+    <values>
+        <field>Mapped_Objects__c</field>
+        <value xsi:type="xsd:string">Asset;Vehicle</value>
+    </values>
+    <values>
+        <field>Question_Label__c</field>
+        <value xsi:type="xsd:string">AnswerAssetLabel</value>
+    </values>
+    <values>
+        <field>Question__c</field>
+        <value xsi:type="xsd:string">AC_Fleet_Information</value>
+    </values>
+    <values>
+        <field>Required_Vertical__c</field>
+        <value xsi:type="xsd:string">Fleet_Owners</value>
+    </values>
+    <values>
+        <field>Verbose_Help_Text_Label__c</field>
+        <value xsi:type="xsd:string">AnswerAssetFleetHelpV</value>
+    </values>
+</CustomMetadata>

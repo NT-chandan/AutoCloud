@@ -1,0 +1,7 @@
+.itemContainer {
+    cursor: pointer;
+}
+
+.itemContainer:hover {
+    background-color: #f3f2f2;
+}

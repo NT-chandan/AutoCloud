@@ -1,0 +1,24 @@
+<template>
+    <div class="container">
+        <!-- Category Item -->
+        <template if:true={isCategory}>
+            <div class="catContainer">
+                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="presentation">
+                    <h3 class="slds-listbox__option-header" role="presentation">{item.label}</h3>
+                </div>
+            </div>
+        </template>
+
+        <!-- Normal Item -->
+        <template if:false={isCategory}>
+            <div class="itemContainer">
+                <div class={containerClasses} role="option" onmousedown={selectItem}>
+                    <span class="slds-media__figure slds-listbox__option-icon"></span>
+                    <span class="slds-media__body">
+                    <span class="slds-truncate" title={item.label}>{item.label}</span>
+                    </span>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

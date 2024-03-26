@@ -1,0 +1,13 @@
+.subsection-title {
+    font-weight: bold;
+    font-size: 1rem;
+    padding-top: 1.5rem;
+}
+.subsection-body {
+    font-size: 0.8125rem;
+    padding: 1rem;
+    padding-bottom: 0.5rem;
+}
+.subsection-body p {
+    margin-bottom: 0.25rem !important; 
+}

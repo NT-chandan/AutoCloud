@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Financial_Accounts_Leveraged__c</fullName>
+    <externalId>false</externalId>
+    <label>Financial Accounts Leveraged</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Checking Account</fullName>
+                <default>false</default>
+                <label>Checking Account</label>
+            </value>
+            <value>
+                <fullName>Savings Account</fullName>
+                <default>false</default>
+                <label>Savings Account</label>
+            </value>
+            <value>
+                <fullName>Loans</fullName>
+                <default>false</default>
+                <label>Loans</label>
+            </value>
+            <value>
+                <fullName>Investment Account</fullName>
+                <default>false</default>
+                <label>Investment Account</label>
+            </value>
+            <value>
+                <fullName>Treasury Service</fullName>
+                <default>false</default>
+                <label>Treasury Service</label>
+            </value>
+            <value>
+                <fullName>Not Listed</fullName>
+                <default>false</default>
+                <label>Not Listed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

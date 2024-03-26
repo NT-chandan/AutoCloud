@@ -1,0 +1,57 @@
+# * Copyright (c) 2023, Salesforce, Inc.
+# * All rights reserved.
+# * SPDX-License-Identifier: Apache 2.0 Clause
+# * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+
+# Used for production environments
+version: '3'
+services:
+  web:
+    env_file:
+      - .env
+    volumes:
+      - ./src/web:/app/src/web
+      - ./src/util:/app/src/util
+      - ./src/types:/app/src/types
+      - ./certs:/app/certs
+      - ./test/web:/app/test/web
+    build:
+      context: .
+      dockerfile: Dockerfile.web.local
+    ports:
+      - '3000:3000' # Main public HTTP port.
+      - '9229:9229' # Debugger port.
+    depends_on:
+      - db
+      - redis
+  worker:
+    env_file:
+      - .env
+    volumes:
+      - ./src/worker:/app/src/worker
+      - ./src/util:/app/src/util
+      - ./src/types:/app/src/types
+      - ./certs:/app/certs
+      - ./templates:/app/templates
+      - ./test/worker:/app/test/worker
+      - ./fonts:/home/pptruser/.local/share/fonts
+    build:
+      context: .
+      dockerfile: Dockerfile.worker.local
+    ports:
+      - '3001:3001' # Worker HTTP port (not used it seems).
+      - '9230:9230' # Debugger port.
+    depends_on:
+      - redis
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: fsc_upgrade_tool__dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'

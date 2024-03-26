@@ -1,0 +1,1 @@
+sfdx force:package:version:create --skipancestorcheck --package "Health Cloud Transition Assistant (UAT)" --codecoverage --installationkey hcta2021 --wait 30 -f config/project-scratch-def.json

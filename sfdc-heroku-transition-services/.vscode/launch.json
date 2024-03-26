@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Docker: Attach to web Node",
+            "port": 9229,
+            "remoteRoot": "/app",
+            "protocol": "inspector",
+            "restart": true,
+            "sourceMaps": true
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Docker: Attach to worker Node",
+            "port": 9230,
+            "remoteRoot": "/app",
+            "protocol": "inspector",
+            "restart": true,
+            "sourceMaps": true
+        }
+    ]
+}

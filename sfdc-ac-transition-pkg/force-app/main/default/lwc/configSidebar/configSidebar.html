@@ -1,0 +1,118 @@
+<template>
+    <!-- Shown -->
+    <template if:true={showConfig}>
+        <article class="slds-card">
+            <template if:true={isLoading}>
+                <lightning-spinner variant="brand" alternative-text="Loading"></lightning-spinner>
+            </template>
+            <div class="slds-grid slds-trial-header slds-card__header" style="margin-bottom: 0;">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-size_4-of-4 slds-medium-size_3-of-3">
+                    <lightning-icon class="headerIcon" icon-name="utility:salesforce1" size="small"></lightning-icon>
+                    <div class="slds-media__body">
+                        <h2 class="slds-truncate" title={label.SidebarConfigTitle}>
+                            <span class="slds-text-heading_small">{label.SidebarConfigTitle}</span>
+                        </h2>
+                    </div>
+                    <div class="rightAlign">
+                        <lightning-icon icon-name="utility:chevronright" size="small" onclick={collapse}></lightning-icon>
+                    </div>
+                    </div>
+                </header>
+            </div>
+            <div class="tabContainer">
+                <lightning-tabset>
+                    <lightning-tab class="tabStyle" label={label.SidebarConfigIntroTabTitle} value="intro">
+                        <div class="slds-welcome-mat slds-welcome-mat_splash">
+                            <div class="slds-welcome-mat__info-content" style="max-width: none; width: 100%;">
+                                <div class="slds-welcome-mat__info welcomeMatStyle">
+                                    <div class="welcomeMatContent">
+                                        <h2 class="slds-welcome-mat__info-title">{label.SidebarConfigIntroTitle}</h2>
+                                        <div class="slds-welcome-mat__info-description slds-text-longform">
+                                            <lightning-formatted-rich-text value={label.SidebarConfigIntroDesc}></lightning-formatted-rich-text>
+                                        </div>
+                                        <div class="slds-welcome-mat__info-actions">
+                                            <lightning-button onclick={beginClicked} variant="brand" label={label.SidebarConfigIntroBegin} value={label.SidebarConfigIntroBegin}></lightning-button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>                
+                            </div>
+                        </div>
+                    </lightning-tab>
+                    <lightning-tab label={label.SidebarConfigSectionTitle} value="sections">
+                        <div class="tableSectionStyle">
+                            <lightning-datatable class="dataTable" key-field="apiName" data={reportSectionData} columns={reportSectionColumns} selected-rows={includedSections} data-id="sections" onrowselection={checkSelectedSection}></lightning-datatable>
+                            <lightning-button class="excludeButton" variant="brand" label={label.SidebarConfigSave} onclick={saveConfig}></lightning-button>
+                        </div>
+                    </lightning-tab>
+                    <lightning-tab label={label.SidebarConfigMetadataTitle} value="metadata">
+                        <div class="tableSectionStyle">
+                            <lightning-datatable class="dataTable" key-field="name" data={metadataSectionData} columns={metadataSectionColumns} selected-rows={includedMetadata} data-id="meta"></lightning-datatable>
+                            <lightning-button class="excludeButton" variant="brand" label={label.SidebarConfigSave} onclick={saveConfig}></lightning-button>
+                        </div>
+                    </lightning-tab>
+                    <lightning-tab label={label.SidebarConfigExcludeTitle} value="summary">
+                        <div class="listContainer" style="padding: 0.5rem;">
+                            <b>{label.SidebarConfigExcludeSection}</b><br/>
+                            <template if:true={hasSections}>
+                                <template for:each={summarySections} for:item="section">
+                                    <span key={section.apiName}>
+                                        {section.name} 
+                                        <br/>
+                                    </span>
+                                </template>
+                            </template>
+                            <template if:false={hasSections}>
+                                <p>{label.SidebarConfigNone}</p>
+                            </template>
+                            <br/>
+                            <b>{label.SidebarConfigExcludeMetadata}</b><br/>
+                            <template if:true={hasMetadata}>
+                                <template for:each={summaryMetadata} for:item="metadata">
+                                    <span key={metadata.name}>
+                                        {metadata.name} 
+                                        <br/>
+                                    </span>
+                                </template>
+                            </template>
+                            <template if:false={hasMetadata}>
+                                <p>{label.SidebarConfigNone}</p>
+                            </template>
+                        </div>
+                        <div class="listContainer">
+                            
+                        </div>
+                    </lightning-tab>
+                </lightning-tabset>
+            </div>
+        </article>
+    </template>
+    <!-- Collapsed -->
+    <template if:false={showConfig}>
+        <article class="slds-card collapsedCard">
+            <template if:true={isLoading}>
+                <lightning-spinner variant="brand" alternative-text="Loading"></lightning-spinner>
+            </template>
+            <div class="slds-grid slds-trial-header slds-card__header" style="margin-bottom: 0;">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="rightAlign">
+                    <lightning-icon icon-name="utility:chevronleft" size="small" onclick={expand}></lightning-icon>
+                </div>
+            </header>
+            </div>
+            <!-- <div class="slds-card__body slds-card__body_inner">
+                <ul style="line-height: 2rem; margin-bottom: 2rem;">
+                    <template for:each={sideItems} for:item="item">
+                        <a class="iconContainer" key={item.title} href={item.link} target="_blank" rel="external noopener noreferrer">
+                            <div class="helpIcon slds-current-color">
+                                <lightning-icon class="iconStyles" icon-name={item.iconName} size="x-small"></lightning-icon>
+                            </div>
+                            <span class="iconText slds-text-heading_small">{item.title}</span>
+                        </a>
+                    </template>
+                </ul>
+            </div> -->
+        </article>
+    </template>
+</template>

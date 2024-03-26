@@ -1,0 +1,40 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="profile-permissions" class="report-results section-content">
+    <table>
+        <thead>
+        <tr class="heading">
+            <th>{{ label.assessmentTableComponentName }}</th>
+            <th>{{ label.assessmentTableComponentType }}</th>
+            <th>{{ label.assessmentTableUsersAssigned }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#assessmentResults.accessInfoResults}}
+            <tr class="item">
+                <td style="display: flex; align-items: center">
+                    {{#children.length}}__CHEVRON_RIGHT__{{/children.length}}<a href="{{ fromComponentUrl }}">{{ fromComponentName }}</a>
+                </td>
+                <td>{{ fromComponentType }}</td>
+                <td>{{ reasonText }}</td>
+            </tr>
+            {{#children}}
+                <tr class="item">
+                    <td class="indent-level-1">
+                        <a href="{{ fromComponentUrl }}">{{ fromComponentName }}</a>
+                    </td>
+                    <td>{{ fromComponentType }}</td>
+                    <td>{{ reasonText }}</td>
+                </tr>
+            {{/children}}
+        {{/assessmentResults.accessInfoResults}}
+        </tbody>
+    </table>
+    {{^assessmentResults.accessInfoResults}}
+        <p>{{ label.assessmentResultsEmptyTable }}</p>
+    {{/assessmentResults.accessInfoResults}}
+</div>

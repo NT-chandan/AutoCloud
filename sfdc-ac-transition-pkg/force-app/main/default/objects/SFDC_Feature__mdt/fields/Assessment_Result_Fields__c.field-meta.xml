@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assessment_Result_Fields__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Comma separated list of Assessment__c field API names. When any of the listed fields has a value populated it will trigger assignment of the Priority set on this configuration</inlineHelpText>
+    <label>Assessment Result Fields</label>
+    <required>false</required>
+    <type>TextArea</type>
+</CustomField>

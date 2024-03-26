@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>System_Log_External__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>When checked, newly created System Logs will be shared with Salesforce.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When checked, newly created System Logs will be shared with Salesforce.</inlineHelpText>
+    <label>System Log External</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

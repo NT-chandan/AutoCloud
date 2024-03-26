@@ -1,0 +1,40 @@
+<template>
+    <article class="slds-card">
+        <template if:true={isLoading}>
+            <lightning-spinner variant="brand" alternative-text="Loading"></lightning-spinner>
+        </template>
+        <div class="slds-grid slds-trial-header slds-card__header" style="margin-bottom: 1.5rem;">
+          <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-grid slds-grid_vertical-align-center slds-size_4-of-4 slds-medium-size_3-of-3">
+              <lightning-icon class="headerIcon" icon-name="utility:salesforce1" size="small"></lightning-icon>
+              <div class="slds-media__body">
+                <h2 class="slds-truncate" title="Learn more about Health Cloud:">
+                    <span class="slds-text-heading_small">Learn More</span>
+                </h2>
+              </div>
+            </div>
+          </header>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- <ul style="line-height: 2rem; margin-bottom: 2rem;">
+                <template for:each={sideItems} for:item="item">
+                    <a key={item.title} class="slds-text-heading_small" style="margin-top: .5rem;" href={item.link} target="_blank" rel="external noopener noreferrer">{item.title}</a>
+                    <br key={item.title}/>
+                </template>
+            </ul> -->
+
+            <ul style="line-height: 2rem; margin-bottom: 2rem;">
+              <template for:each={sideItems} for:item="item">
+                  <a class="iconContainer" key={item.title} href={item.link} target="_blank" rel="external noopener noreferrer">
+                      <div class="helpIcon slds-current-color">
+                          <lightning-icon class="iconStyles" icon-name={item.iconName} size="x-small"></lightning-icon>
+                      </div>
+                      <!-- <a class="slds-text-heading_small" href={item.link} target="_blank" rel="external noopener noreferrer">{item.title}</a> -->
+                      <span class="iconText slds-text-heading_small">{item.title}</span>
+                  </a>
+              </template>
+          </ul>
+        </div>  
+    </article>  
+</template>

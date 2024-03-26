@@ -1,0 +1,56 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="migration-analysis" class="report-results section-content">
+
+    <h3>{{subtitle}}</h3>
+
+    {{^isImage}}
+        <div class="subsection-body">{{{ body }}}</div>
+    {{/isImage}}
+
+    <h4 style="margin-top: 15px; margin-bottom: 25px;">{{label.generalObjectMappingDisclaimer}}</h4>
+
+    <ul class="system-overview-list">
+        <li><strong>{{label.mappedObjects}}: </strong> {{assessmentResults.reportSummaryResults.mappedObjectsCount}}</li>
+        <li><strong>{{label.totalObjects}}: </strong> {{assessmentResults.reportSummaryResults.totalObjectsCount}}</li>
+        <li><strong>{{label.mappedFields}}: </strong> {{assessmentResults.reportSummaryResults.mappedFieldsCount}}</li>
+        <li><strong>{{label.totalFields}}: </strong> {{assessmentResults.reportSummaryResults.totalFieldsCount}}</li>
+        <li><strong>{{label.averageFields}}: </strong> {{assessmentResults.reportSummaryResults.avgFieldsPerMappedObject}}</li>
+        <li><strong>{{label.relatedNotMapped}}: </strong> {{assessmentResults.reportSummaryResults.mappedObjectsCount}}</li>
+    </ul>
+
+    <h4>Selected Lines of Business</h4>
+
+    <ul class="system-overview-list">
+        {{#assessmentResults.reportSummaryResults.linesOfBusiness}}
+            <li> {{.}} </li>
+        {{/assessmentResults.reportSummaryResults.linesOfBusiness}}
+    </ul>
+
+    <table>
+        <thead>
+        <tr class="heading" style="margin-top: 10px">
+            <th>{{ label.tableHeaderRecommendation }}</th>
+            <th>{{ label.tableHeaderFeatureTransition }}</th>
+            <th>{{ label.tableHeaderGoal }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#assessmentResults.reportSummaryResults.basisOfAssessment}}
+            <tr class="item">
+                <td>{{ recommendation }}</td>
+                <td><a href="{{ featureUrl }}" target="_blank">{{ feature }}</a></td>
+                <td>{{ goal }}</td>
+            </tr>
+        {{/assessmentResults.reportSummaryResults.basisOfAssessment}}
+        </tbody>
+    </table>
+    {{^assessmentResults.reportSummaryResults.basisOfAssessment}}
+        <p>{{ label.assessmentResultsEmptyTable }}</p>
+    {{/assessmentResults.reportSummaryResults.basisOfAssessment}}
+    
+</div>

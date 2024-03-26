@@ -1,0 +1,41 @@
+/* CSS Styles for the Executive Summary */
+
+.report-summary-accordion {
+    margin-left: 15px !important;
+}
+
+.sectionWrapper {
+    padding: 1rem;
+}
+
+.datatable {
+    padding: 1rem;
+}
+
+/* Table of Contents */
+.toc-item a {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+}
+
+.toc-item a:hover {
+    font-weight: 700;
+    background-color: #eeeeee;
+    text-decoration: none;
+}
+
+/* System Overview */
+.system-overview-list {
+    margin-bottom: 15px !important;
+}
+
+/* Recommended Settings */
+.recommended-settings-list li {
+    margin-bottom: 5px;
+    padding: 5px;
+}
+.recommended-settings-icon {
+    margin-right: 5px;
+    border-radius: borderRadiusCircle;
+}

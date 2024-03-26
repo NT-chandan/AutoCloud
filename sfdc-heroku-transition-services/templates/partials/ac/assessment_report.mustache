@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<html>
+  __HTML_HEAD__
+
+  <body>
+    <div class="page-break"></div>
+
+    {{#sections}}
+
+    <div id="{{name}}" class="section-content">
+        
+        {{^isReportSummarySection}}
+            <h1>{{ title }}</h1>
+        {{/isReportSummarySection}}
+        {{#isReportSummarySection}}
+            {{^hideSummary}}
+                <h1>{{ title }}</h1>
+            {{/hideSummary}}
+        {{/isReportSummarySection}}
+
+        {{#subsections}}
+            {{^isReportSummarySection}}
+            __SUBSECTION__
+            {{/isReportSummarySection}}
+        {{/subsections}}
+
+        {{#isWelcomeSection}}
+            __WELCOME__
+        {{/isWelcomeSection}}
+
+        {{^hideSummary}}
+            {{#isReportSummarySection}}
+                __REPORT_SUMMARY_SECTION__
+            {{/isReportSummarySection}}
+        {{/hideSummary}}
+
+        {{#isOverallRecommendationSection}}
+            __TRANSITION_APPROACH__
+        {{/isOverallRecommendationSection}}
+
+        {{#isMigrationAnalysisSection}}
+            __MIGRATION_ANALYSIS__
+        {{/isMigrationAnalysisSection}}
+
+        {{#isAssessmentResultsSection}}
+            __ASSESSMENT_RESULTS__
+        {{/isAssessmentResultsSection}}
+
+        {{#isProfileAnalysisSection}}
+            __PROFILE_ANALYSIS__
+        {{/isProfileAnalysisSection}}
+
+        {{#isSharingSettingAnalysisSection}}
+            __SHARING_SETTING_ANALYSIS__
+        {{/isSharingSettingAnalysisSection}}
+
+        {{#isFieldAnalysisSection}}
+            __FIELD_ANALYSIS__
+        {{/isFieldAnalysisSection}}
+
+    </div>
+
+    <div class="page-break"></div>
+
+    {{/sections}}
+
+  </body>
+</html>

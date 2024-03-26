@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to be sent to the user when a report is ready for viewing.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Transition Assistant Report Ready</name>
+    <style>none</style>
+    <subject>Automotive Cloud Transition Assistant Assessment Report is now ready for you to review</subject>
+    <textOnly>Your Assessment Report is now ready for you to review.
+
+        {!Assessment__c.Link}
+
+        Organization: {!Organization.Name} ({!Organization.Id})
+        User: {!Assessment__c.CreatedBy} ({!Assessment__c.CreatedById})</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

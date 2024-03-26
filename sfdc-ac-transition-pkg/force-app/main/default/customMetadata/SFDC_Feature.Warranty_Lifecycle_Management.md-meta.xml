@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Warranty Lifecycle Management</label>
+    <protected>true</protected>
+    <values>
+        <field>Answer_API_Name__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Assessment_Result_Fields__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Conflicting_Custom_Objects__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Custom_Label__c</field>
+        <value xsi:type="xsd:string">FeatureNameWarranty</value>
+    </values>
+    <values>
+        <field>Documentation_URL__c</field>
+        <value xsi:type="xsd:string">https://help.salesforce.com/s/articleView?id=sf.auto_warranty_claims_parent.htm&amp;type=5</value>
+    </values>
+    <values>
+        <field>Explanation_Label__c</field>
+        <value xsi:type="xsd:string">FeatureLabelWarranty</value>
+    </values>
+    <values>
+        <field>Feature_Description__c</field>
+        <value xsi:type="xsd:string">FeatureDescWarranty</value>
+    </values>
+    <values>
+        <field>Index__c</field>
+        <value xsi:type="xsd:double">3.0</value>
+    </values>
+    <values>
+        <field>Negative_Label__c</field>
+        <value xsi:type="xsd:string">FeatureNegativeWarranty</value>
+    </values>
+    <values>
+        <field>Priority__c</field>
+        <value xsi:type="xsd:string">Medium</value>
+    </values>
+    <values>
+        <field>Reason_Label__c</field>
+        <value xsi:type="xsd:string">Key Feature</value>
+    </values>
+    <values>
+        <field>Render_Flags__c</field>
+        <value xsi:type="xsd:string">Warranties_Selected__c</value>
+    </values>
+</CustomMetadata>

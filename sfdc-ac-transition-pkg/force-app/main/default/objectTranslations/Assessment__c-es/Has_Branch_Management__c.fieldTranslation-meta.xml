@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label></label>
+    <name>Has_Branch_Management__c</name>
+    <picklistValues>
+        <masterLabel>I currently track branches in Salesforce</masterLabel>
+        <translation>Utilizo Salesforce para mantener sucursales bancarios</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>I don’t currently track branches, but want to moving forward</masterLabel>
+        <translation>No mantengo sucursales bancarios en Salesforce, pero quiero hacerlo en el futuro</translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Has_Branch_Management__c</fullName>
+    <externalId>false</externalId>
+    <label>Has Branch Management</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>I currently track branches in Salesforce</fullName>
+                <default>false</default>
+                <label>I currently track branches in Salesforce</label>
+            </value>
+            <value>
+                <fullName>I don’t currently track branches, but want to moving forward</fullName>
+                <default>false</default>
+                <label>I don’t currently track branches, but want to moving forward</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

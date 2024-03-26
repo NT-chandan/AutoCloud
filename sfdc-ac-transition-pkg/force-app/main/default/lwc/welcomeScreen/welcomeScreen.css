@@ -1,0 +1,47 @@
+.screenContainer {
+    background: white;
+    border-radius: .25rem;
+    padding: 1rem;
+}
+
+.hcTextColor {
+    color: #730394;
+    font-weight: bold;
+}
+
+.hcTextColorNormal {
+    color: #730394;
+}
+
+.introSection {
+    font-size: 1rem;
+}
+
+.introSection h1 {
+    font-size: 1rem;
+}
+
+li {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+li span {
+    margin-left: .5rem;
+}
+
+.slds-icon-action-check {
+    background-color: #730394;
+}
+
+.checkmarkRow {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.checkmarkRow img {
+    margin-left: 4rem;
+    width: 12rem;
+}

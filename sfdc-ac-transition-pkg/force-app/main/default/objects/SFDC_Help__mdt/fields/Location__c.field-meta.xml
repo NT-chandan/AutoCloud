@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Location__c</fullName>
+    <description>Where this help item can be found in the application.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Where this help item can be found in the application.</inlineHelpText>
+    <label>Location</label>
+    <required>true</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Help Sidebar - Main Link</fullName>
+                <default>true</default>
+                <label>Help Sidebar - Main Link</label>
+            </value>
+            <value>
+                <fullName>Help Sidebar - Side Link</fullName>
+                <default>false</default>
+                <label>Help Sidebar - Side Link</label>
+            </value>
+            <value>
+                <fullName>DeploymentChecklist</fullName>
+                <default>false</default>
+                <label>Deployment Checklist</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

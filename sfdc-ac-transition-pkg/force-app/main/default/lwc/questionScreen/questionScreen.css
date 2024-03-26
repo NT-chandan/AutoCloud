@@ -1,0 +1,33 @@
+.error-message {
+    color: #ea001e;
+}
+
+.verticalCard+.verticalCard {
+    margin-bottom: 1rem;
+}
+
+.verticalCard {
+    display: block;
+}
+
+.questionFooter {
+    margin-top: 2rem;
+    justify-content: center;
+    display: flex;
+}
+
+.alignLeft {
+    margin-right: auto;
+}
+
+.alightRight {
+    margin-left: auto;
+}
+
+.qText {
+    font-size: 1.5rem;
+}
+
+.verticalContainer {
+    margin-top: 2rem;
+}

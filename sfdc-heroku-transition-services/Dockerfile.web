@@ -1,0 +1,52 @@
+# * Copyright (c) 2023, Salesforce, Inc.
+# * All rights reserved.
+# * SPDX-License-Identifier: Apache 2.0 Clause
+# * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+
+# TS BUILDER CONFIG
+#FROM alpine as builder
+FROM node:18-alpine as builder
+#Install Node
+#RUN apk add --update nodejs npm
+
+#Prepare web app
+WORKDIR /app
+COPY ["package.json", "package-lock.json*", "tsconfig.json", ".eslintrc", ".prettierrc", "./"]
+COPY src/web src/web
+COPY src/util src/util
+COPY src/types src/types
+RUN npm install --quite && npm run build-ts
+
+# PROD CONFIG
+#FROM alpine
+FROM node:18-alpine
+#Install Node
+#RUN apk add --update nodejs npm
+
+#Prepare app for production run
+WORKDIR /app
+ENV NODE_ENV=production
+COPY ["package.json", "package-lock.json*", "./"]
+RUN npm ci --quite --only=production
+COPY --from=builder /app/dist ./dist
+COPY scripts/run.sh .
+RUN chmod +x run.sh
+
+# Add Exec support for debugging: https://devcenter.heroku.com/articles/exec#using-with-docker.
+# (Non functional for Private Spaces, that requires an extra change).
+# Note about `procps`: It's needed as Alpine uses BusyBox which has a bare bones `ps` without the -C option, and that
+#  option is needed by Heroku Exec script, which almost comes from https://exec-manager.heroku.com/ set on the HEROKU_EXEC_URL var.
+#  Heroku team assumes for Exec, Ubuntu container is used, see https://help.heroku.com/LQCLQ0R2/how-do-i-use-heroku-exec-with-a-container-that-s-not-based-on-ubuntu.
+RUN apk add --no-cache \
+    bash \
+    curl \
+    openssh \
+    python3 \
+    procps \
+    && ln -sf python3 /usr/bin/python
+COPY scripts/heroku-exec.sh /app/.profile.d/heroku-exec.sh
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+#Run application
+# CMD [ "npm", "start" ]
+CMD "./run.sh"

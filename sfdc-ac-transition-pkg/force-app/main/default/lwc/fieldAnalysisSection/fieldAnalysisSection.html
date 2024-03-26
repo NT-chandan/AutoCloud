@@ -1,0 +1,36 @@
+<template>
+	<template if:true={label}>
+		<div class="subsection-body">
+			<h3 class="slds-text-title_bold slds-p-bottom_small">{label.fieldAnalysisHeadingEncryption}</h3>
+			<lightning-formatted-rich-text value={label.fieldAnalysisIntro}></lightning-formatted-rich-text>
+			<template if:true={hasEncryptionData}>
+				<div class="slds-scrollable_y datatable">
+					<lightning-tree-grid key-field="uuid" hide-checkbox-column="true" columns={encryptionColumns}
+						data={encryptionData}>
+					</lightning-tree-grid>
+				</div>
+			</template>
+			<template if:false={hasEncryptionData}>
+				<p class="slds-text-body_regular slds-p-top_small" style="font-weight: bold;">
+					{label.assessmentResultsEmptyTable}</p>
+			</template>
+		</div>
+
+		<div class="subsection-body">
+			<h3 class="slds-text-title_bold slds-p-bottom_small">{label.fieldAnalysisHeadingFieldAudit}</h3>
+			<lightning-formatted-rich-text value={label.fieldAnalysisTracking}></lightning-formatted-rich-text>
+			<template if:true={hasFieldAuditData}>
+				<div class="slds-scrollable_y datatable">
+					<lightning-tree-grid key-field="uuid" hide-checkbox-column="true" columns={fieldAuditColumns}
+						data={fieldAuditData}>
+					</lightning-tree-grid>
+				</div>
+			</template>
+			<template if:false={hasFieldAuditData}>
+				<p class="slds-text-body_regular slds-p-top_small" style="font-weight: bold;">
+					{label.assessmentResultsEmptyTable}</p>
+			</template>
+		</div>
+
+	</template>
+</template>

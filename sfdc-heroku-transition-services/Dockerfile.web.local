@@ -1,0 +1,16 @@
+# * Copyright (c) 2023, Salesforce, Inc.
+# * All rights reserved.
+# * SPDX-License-Identifier: Apache 2.0 Clause
+# * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+
+# TS BUILDER CONFIG
+#FROM alpine
+FROM node:18-alpine
+#Install Node
+#RUN apk add --update nodejs npm
+
+#Prepare web app
+WORKDIR /app
+COPY ["package.json", "package-lock.json*", "tsconfig.json", "jest.config.js", "./"]
+RUN npm install
+CMD ["npm", "run", "watch"]

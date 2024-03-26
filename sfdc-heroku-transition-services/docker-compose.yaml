@@ -1,0 +1,50 @@
+# * Copyright (c) 2023, Salesforce, Inc.
+# * All rights reserved.
+# * SPDX-License-Identifier: Apache 2.0 Clause
+# * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+
+# Used for production environments
+version: '3'
+services:
+  web:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - '3000:3000' # Main public HTTP port.
+      - '9229:9091' # Debugger port to non-default port for prod (9091).
+    volumes:
+      # Local "certs" dir can be changed from variable. https://docs.docker.com/compose/compose-file/#interpolation.
+      - ./${CERTS_DIR:-certs}:/app/certs
+    depends_on:
+      - db
+      - redis
+  worker:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    ports:
+      - '3001:3001' # Worker HTTP port (not used it seems).
+      - '9230:9091' # Debugger port to non-default port for prod (9091).
+    depends_on:
+      - redis
+    volumes:
+      # Local "certs" dir can be changed from variable. https://docs.docker.com/compose/compose-file/#interpolation.
+      - ./${CERTS_DIR:-certs}:/app/certs
+      - ./fonts:/home/pptruser/.local/share/fonts
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: fsc_upgrade_tool__prod
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'

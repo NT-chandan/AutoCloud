@@ -1,0 +1,19 @@
+{
+    "name": "Health Cloud Transition Tool",
+    "stack": "container",
+    "environments": {
+        "review": {
+            "stack": "container",
+            "addons": [
+                "heroku-redis:mini",
+                "papertrail:mini"
+            ],
+            "formation": {
+                "worker": {
+                    "quantity": 1,
+                    "size": "standard-1x"
+                }
+            }
+        }
+    }
+}

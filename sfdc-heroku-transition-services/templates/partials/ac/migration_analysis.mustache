@@ -1,0 +1,60 @@
+<!--/*
+ * Copyright (c) 2023, Salesforce, Inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: Apache 2.0 Clause
+ * For full license text, see the LICENSE file in the repo root or http://www.apache.org/licenses/
+ */ -->
+<div id="migration-analysis" class="report-results section-content">
+    <table>
+        <thead>
+        <tr class="heading" style="margin-top: 10px">
+            <th>{{ label.assessmentTableTransitionFrom }}</th>
+            <th>{{ label.assessmentTableComponentType }}</th>
+            <th>{{ label.assessmentTableRecordCount }}</th>
+            <th>{{ label.assessmentTableTransitionTo }}</th>
+            <th>{{ label.assessmentTableRecommendation }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#assessmentResults.migrationAnalysis}}
+            <tr class="item">
+                <td style="white-space: nowrap;">
+                    {{#children.length}}>{{/children.length}}
+                    <a href="{{ fromComponentUrl }}">{{ fromComponentName }}</a>
+                </td>
+                <td>{{ fromComponentType }}</td>
+                <td>{{ fromComponentSize }}</td>
+                <td>{{ toComponentName }}</td>
+                <td>{{ reasonText }}</td>
+            </tr>
+            {{#children}}
+                <tr class="item">
+                    <td class="indent-level-1" >
+                        {{#children.length}}>{{/children.length}}
+                        <a href="{{ fromComponentUrl }}">{{ fromComponentName }}</a>
+                    </td>
+                    <td>{{ fromComponentType }}</td>
+                    <td></td>
+                    <td>{{ toComponentName }}</td>
+                    <td>{{ reasonText }}</td>
+                </tr>
+                {{#children}}
+                    <tr class="item">
+                        <td class="indent-level-2">
+                            <a href="{{ fromComponentUrl }}">{{ fromComponentName }}</a>
+                        </td>
+                        <!--            <td>{{ fromComponentType }}</td>-->
+                        <td>{{ fromComponentType }}</td>
+                        <td></td>
+                        <td>{{ toComponentName }}</td>
+                        <td>{{ reasonText }}</td>
+                    </tr>
+                {{/children}}
+            {{/children}}
+        {{/assessmentResults.migrationAnalysis}}
+        </tbody>
+    </table>
+    {{^assessmentResults.migrationAnalysis}}
+        <p>{{ label.assessmentResultsEmptyTable }}</p>
+    {{/assessmentResults.migrationAnalysis}}
+</div>

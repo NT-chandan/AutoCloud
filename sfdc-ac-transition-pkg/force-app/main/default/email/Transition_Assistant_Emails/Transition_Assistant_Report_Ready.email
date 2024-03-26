@@ -1,0 +1,6 @@
+Your Assessment Report is now ready for you to review.<br/><br/>
+
+<a href="{!Assessment__c.Link}">{!Assessment__c.Link}</a><br/><br/>
+
+Organization: {!Organization.Name} ({!Organization.Id})<br/><br/>
+User: {!Assessment__c.CreatedBy} ({!Assessment__c.CreatedById})<br/><br/>
